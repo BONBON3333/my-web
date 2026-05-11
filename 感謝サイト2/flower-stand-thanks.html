@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フラスタ協賛者様</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  background: #0d0820;
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== 背景の星 ===== */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,200,230,0.6) 1px, transparent 1px),
+    radial-gradient(circle, rgba(200,180,255,0.4) 1px, transparent 1px);
+  background-size: 60px 60px, 40px 40px;
+  background-position: 0 0, 20px 20px;
+  pointer-events: none; z-index: 0;
+  opacity: 0.3;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 64px 24px 48px;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 12px; letter-spacing: 4px; font-weight: 700;
+  color: #ffb3d9;
+  border: 1.5px solid rgba(255,179,217,0.4);
+  padding: 6px 20px; border-radius: 99px; margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-weight: 900;
+  font-size: clamp(32px, 8vw, 72px);
+  line-height: 1.2;
+  margin-bottom: 8px;
+  background: linear-gradient(120deg, #ff7ec9, #ffb347, #7ee8ff, #c67fff);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 5s linear infinite;
+}
+
+@keyframes textShimmer {
+  0%   { background-position: 0% center }
+  100% { background-position: 300% center }
+}
+
+.hero h2 {
+  font-size: clamp(14px, 3vw, 20px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+.deco-row {
+  display: flex; justify-content: center; gap: 16px; font-size: 30px;
+}
+.deco-row span { display: inline-block; animation: bounce 2.2s ease-in-out infinite; }
+.deco-row span:nth-child(2){animation-delay:.25s}
+.deco-row span:nth-child(3){animation-delay:.5s}
+.deco-row span:nth-child(4){animation-delay:.75s}
+.deco-row span:nth-child(5){animation-delay:1s}
+
+@keyframes bounce {
+  0%,100%{transform:translateY(0) rotate(-6deg);}
+  50%{transform:translateY(-10px) rotate(6deg);}
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  position: relative; z-index: 1;
+  text-align: center; padding: 0 24px 28px;
+}
+.section-label p {
+  font-size: 13px; color: rgba(255,255,255,0.4); letter-spacing: 3px; text-transform: uppercase;
+}
+
+/* ===== MARQUEE WRAPPER ===== */
+.marquee-section {
+  position: relative; z-index: 1;
+  overflow: hidden;
+  padding: 16px 0;
+  /* 左右にフェードアウト */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+/* 2行のレーン */
+.marquee-lane {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  margin-bottom: 20px;
+  animation: scrollLeft 30s linear infinite;
+}
+.marquee-lane.reverse {
+  animation: scrollRight 35s linear infinite;
+}
+
+@keyframes scrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scrollRight {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ===== CARD ===== */
+.card { --c1: #ff7ec9; --c2: #ffb347; }
+.card:nth-child(3n+2) { --c1: #7ee8ff; --c2: #5fbfff; }
+.card:nth-child(3n+3) { --c1: #c67fff; --c2: #ff7ec9; }
+.card:nth-child(5n+4) { --c1: #ffec6e; --c2: #ff7ec9; }
+
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 20px 20px 18px;
+  width: 240px;
+  flex-shrink: 0;
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s ease, border-color .3s ease;
+  cursor: default;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--c1), var(--c2));
+}
+.card:hover {
+  transform: scale(1.06);
+  border-color: var(--c1);
+}
+
+.card-top {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+}
+
+.card-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+
+.card-name {
+  font-size: 15px; font-weight: 900; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.card-sns {
+  font-size: 11px; font-weight: 700;
+  color: var(--c1); text-decoration: none;
+  display: block; margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  opacity: 0.9;
+}
+.card-sns:hover { opacity: 1; text-decoration: underline; }
+
+.card-message {
+  font-size: 12px; line-height: 1.8; color: rgba(255,255,255,0.65);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 10px; margin-top: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-message:empty { display: none; }
+
+/* ===== FOOTER ===== */
+.footer-area {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 64px 24px 56px;
+}
+.footer-area .thanks {
+  font-size: clamp(24px, 5vw, 44px);
+  font-weight: 900;
+  background: linear-gradient(120deg, #ff7ec9, #ffb347, #7ee8ff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 4s linear infinite;
+  margin-bottom: 16px;
+}
+.footer-area p {
+  font-size: 14px; color: rgba(255,255,255,0.5); line-height: 2;
+}
+
+/* ===== PAUSE on hover ===== */
+.marquee-section:hover .marquee-lane { animation-play-state: paused; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">✦ Flower Stand Project ✦</div>
+  <h1>フラスタ協賛者様</h1>
+  <h2>ご参加いただきありがとうございました</h2>
+  <div class="deco-row">
+    <span>🌸</span><span>🌷</span><span>💐</span><span>🌼</span><span>🌺</span>
+  </div>
+</section>
+
+<div class="section-label">
+  <p>✦ &nbsp; Supporters &nbsp; ✦</p>
+</div>
+
+<!-- ===== MARQUEE ===== -->
+<!--
+  【参加者の編集方法】
+  下の .marquee-lane の中にある .card を編集してください。
+  1行目（上段）と2行目（下段）があります。
+  それぞれ同じカードを2回繰り返してください（無限ループのため）。
+  ※「== 上段 ここまで（1セット目）==」と「== 上段 2セット目 ==」に
+  　同じカードをコピーしてください。
+-->
+
+<div class="marquee-section">
+
+  <!-- 上段：左へ流れる -->
+  <div class="marquee-lane" id="lane1">
+
+    <!-- == 上段 1セット目 ここから == -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌸</div>
+        <div>
+          <div class="card-name">山田 花子</div>
+          <a class="card-sns" href="https://instagram.com/hanako_example" target="_blank">@hanako_example</a>
+        </div>
+      </div>
+      <div class="card-message">素敵な企画に参加できて嬉しかったです！またよろしくお願いします🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌷</div>
+        <div>
+          <div class="card-name">鈴木 さくら</div>
+          <a class="card-sns" href="https://x.com/sakura_example" target="_blank">@sakura_example</a>
+        </div>
+      </div>
+      <div class="card-message">フラワースタンド、とっても華やかで感動しました💐</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌼</div>
+        <div>
+          <div class="card-name">田中 ひまり</div>
+          <a class="card-sns" href="https://instagram.com/himari_example" target="_blank">@himari_example</a>
+        </div>
+      </div>
+      <div class="card-message">参加できて光栄でした。これからも応援しています！</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌺</div>
+        <div>
+          <div class="card-name">佐藤 あやか</div>
+          <a class="card-sns" href="https://instagram.com/ayaka_example" target="_blank">@ayaka_example</a>
+        </div>
+      </div>
+      <div class="card-message">こんなに可愛いスタンドになるとは！感激です✨</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌻</div>
+        <div>
+          <div class="card-name">伊藤 みく</div>
+          <a class="card-sns" href="https://x.com/miku_example" target="_blank">@miku_example</a>
+        </div>
+      </div>
+      <div class="card-message">お花に囲まれて最高でした🌻ありがとうございます！</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">💐</div>
+        <div>
+          <div class="card-name">渡辺 れい</div>
+          <a class="card-sns" href="https://instagram.com/rei_example" target="_blank">@rei_example</a>
+        </div>
+      </div>
+      <div class="card-message">初めて参加しましたが温かい企画で嬉しかったです🌷</div>
+    </div>
+    <!-- == 上段 1セット目 ここまで == -->
+
+    <!-- == 上段 2セット目（上と全く同じカードをコピー）== -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌸</div>
+        <div>
+          <div class="card-name">山田 花子</div>
+          <a class="card-sns" href="https://instagram.com/hanako_example" target="_blank">@hanako_example</a>
+        </div>
+      </div>
+      <div class="card-message">素敵な企画に参加できて嬉しかったです！またよろしくお願いします🌸</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌷</div>
+        <div>
+          <div class="card-name">鈴木 さくら</div>
+          <a class="card-sns" href="https://x.com/sakura_example" target="_blank">@sakura_example</a>
+        </div>
+      </div>
+      <div class="card-message">フラワースタンド、とっても華やかで感動しました💐</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌼</div>
+        <div>
+          <div class="card-name">田中 ひまり</div>
+          <a class="card-sns" href="https://instagram.com/himari_example" target="_blank">@himari_example</a>
+        </div>
+      </div>
+      <div class="card-message">参加できて光栄でした。これからも応援しています！</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌺</div>
+        <div>
+          <div class="card-name">佐藤 あやか</div>
+          <a class="card-sns" href="https://instagram.com/ayaka_example" target="_blank">@ayaka_example</a>
+        </div>
+      </div>
+      <div class="card-message">こんなに可愛いスタンドになるとは！感激です✨</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌻</div>
+        <div>
+          <div class="card-name">伊藤 みく</div>
+          <a class="card-sns" href="https://x.com/miku_example" target="_blank">@miku_example</a>
+        </div>
+      </div>
+      <div class="card-message">お花に囲まれて最高でした🌻ありがとうございます！</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">💐</div>
+        <div>
+          <div class="card-name">渡辺 れい</div>
+          <a class="card-sns" href="https://instagram.com/rei_example" target="_blank">@rei_example</a>
+        </div>
+      </div>
+      <div class="card-message">初めて参加しましたが温かい企画で嬉しかったです🌷</div>
+    </div>
+    <!-- == 上段 2セット目 ここまで == -->
+
+  </div><!-- /lane1 -->
+
+  <!-- 下段：右へ流れる -->
+  <div class="marquee-lane reverse" id="lane2">
+
+    <!-- == 下段 1セット目 ここから == -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌹</div>
+        <div>
+          <div class="card-name">中村 ゆい</div>
+          <a class="card-sns" href="https://instagram.com/yui_example" target="_blank">@yui_example</a>
+        </div>
+      </div>
+      <div class="card-message">大好きな推しにお花を贈れて最高でした🌹</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌈</div>
+        <div>
+          <div class="card-name">小林 なな</div>
+          <a class="card-sns" href="https://x.com/nana_example" target="_blank">@nana_example</a>
+        </div>
+      </div>
+      <div class="card-message">いつも応援しています。これからもよろしくね💖</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🦋</div>
+        <div>
+          <div class="card-name">加藤 まい</div>
+          <a class="card-sns" href="https://instagram.com/mai_example" target="_blank">@mai_example</a>
+        </div>
+      </div>
+      <div class="card-message">みんなの愛が詰まった素敵なスタンドでした🦋</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">⭐</div>
+        <div>
+          <div class="card-name">松本 るな</div>
+          <a class="card-sns" href="https://instagram.com/luna_example" target="_blank">@luna_example</a>
+        </div>
+      </div>
+      <div class="card-message">次の企画も絶対参加します！ありがとうございました⭐</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🎀</div>
+        <div>
+          <div class="card-name">井上 あい</div>
+          <a class="card-sns" href="https://x.com/ai_example" target="_blank">@ai_example</a>
+        </div>
+      </div>
+      <div class="card-message">お花の写真、保存しました！とても綺麗でした🎀</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">💫</div>
+        <div>
+          <div class="card-name">木村 のあ</div>
+          <a class="card-sns" href="https://instagram.com/noa_example" target="_blank">@noa_example</a>
+        </div>
+      </div>
+      <div class="card-message">こんな素敵な企画を企画してくれてありがとう💫</div>
+    </div>
+    <!-- == 下段 1セット目 ここまで == -->
+
+    <!-- == 下段 2セット目（上と全く同じカードをコピー）== -->
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌹</div>
+        <div>
+          <div class="card-name">中村 ゆい</div>
+          <a class="card-sns" href="https://instagram.com/yui_example" target="_blank">@yui_example</a>
+        </div>
+      </div>
+      <div class="card-message">大好きな推しにお花を贈れて最高でした🌹</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🌈</div>
+        <div>
+          <div class="card-name">小林 なな</div>
+          <a class="card-sns" href="https://x.com/nana_example" target="_blank">@nana_example</a>
+        </div>
+      </div>
+      <div class="card-message">いつも応援しています。これからもよろしくね💖</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🦋</div>
+        <div>
+          <div class="card-name">加藤 まい</div>
+          <a class="card-sns" href="https://instagram.com/mai_example" target="_blank">@mai_example</a>
+        </div>
+      </div>
+      <div class="card-message">みんなの愛が詰まった素敵なスタンドでした🦋</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">⭐</div>
+        <div>
+          <div class="card-name">松本 るな</div>
+          <a class="card-sns" href="https://instagram.com/luna_example" target="_blank">@luna_example</a>
+        </div>
+      </div>
+      <div class="card-message">次の企画も絶対参加します！ありがとうございました⭐</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">🎀</div>
+        <div>
+          <div class="card-name">井上 あい</div>
+          <a class="card-sns" href="https://x.com/ai_example" target="_blank">@ai_example</a>
+        </div>
+      </div>
+      <div class="card-message">お花の写真、保存しました！とても綺麗でした🎀</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon">💫</div>
+        <div>
+          <div class="card-name">木村 のあ</div>
+          <a class="card-sns" href="https://instagram.com/noa_example" target="_blank">@noa_example</a>
+        </div>
+      </div>
+      <div class="card-message">こんな素敵な企画を企画してくれてありがとう💫</div>
+    </div>
+    <!-- == 下段 2セット目 ここまで == -->
+
+  </div><!-- /lane2 -->
+
+</div><!-- /marquee-section -->
+
+<!-- FOOTER -->
+<div class="footer-area">
+  <div class="thanks">ありがとうございました 🌸</div>
+  <p>
+    皆さんのおかげで最高の企画になりました。<br>
+    これからも応援よろしくお願いします！
+  </p>
+</div>
+
+</body>
+</html>

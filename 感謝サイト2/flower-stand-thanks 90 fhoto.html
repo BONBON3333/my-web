@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フラスタ協賛者様</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== 背景：3枚の縦長写真を横並び ===== */
+.bg-photos {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  z-index: 0;
+}
+.bg-photos .bg-photo {
+  height: 100%;
+  overflow: hidden;
+}
+.bg-photos .bg-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: brightness(0.38) saturate(0.85);
+}
+/* 画像未設定時のプレースホルダー */
+.bg-photos .bg-photo .bg-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: rgba(182, 90, 90, 0.2);
+  text-align: center; line-height: 2;
+}
+/* 写真の境界線 */
+.bg-photos .bg-photo + .bg-photo {
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 背景全体にグラデオーバーレイ（上下を暗く） */
+.bg-overlay {
+  position: fixed; inset: 0; z-index: 1;
+  background:
+    linear-gradient(to bottom,
+      rgba(13,8,32,0.55) 0%,
+      rgba(13,8,32,0.1) 30%,
+      rgba(13,8,32,0.1) 70%,
+      rgba(13,8,32,0.7) 100%
+    );
+  pointer-events: none;
+}
+
+/* ===== コンテンツ層 ===== */
+.content {
+  position: relative; z-index: 2;
+  min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 72px 24px 56px;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 12px; letter-spacing: 4px; font-weight: 700;
+  color: #ffb3d9;
+  border: 1.5px solid rgba(255,179,217,0.45);
+  padding: 6px 22px; border-radius: 99px; margin-bottom: 26px;
+  background: rgba(13,8,32,0.4);
+  backdrop-filter: blur(8px);
+}
+.hero h1 {
+  font-weight: 900;
+  font-size: clamp(34px, 8vw, 76px);
+  line-height: 1.15; margin-bottom: 10px;
+  background: linear-gradient(120deg, #ff7ec9, #ffb347, #7ee8ff, #c67fff);
+  background-size: 300% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 5s linear infinite;
+  text-shadow: none;
+}
+@keyframes textShimmer {
+  0%{background-position:0% center} 100%{background-position:300% center}
+}
+.hero h2 {
+  font-size: clamp(13px, 2.5vw, 18px); font-weight: 400;
+  color: rgba(255,255,255,0.6); margin-bottom: 44px; letter-spacing: 2px;
+}
+.deco-row { display: flex; justify-content: center; gap: 16px; font-size: 28px; }
+.deco-row span { display: inline-block; animation: bounce 2.2s ease-in-out infinite; }
+.deco-row span:nth-child(2){animation-delay:.25s}
+.deco-row span:nth-child(3){animation-delay:.5s}
+.deco-row span:nth-child(4){animation-delay:.75s}
+.deco-row span:nth-child(5){animation-delay:1s}
+@keyframes bounce {
+  0%,100%{transform:translateY(0) rotate(-6deg);}
+  50%{transform:translateY(-10px) rotate(6deg);}
+}
+
+/* COUNT BADGE */
+.count-badge {
+  text-align: center; padding: 48px 24px 28px;
+}
+.count-badge span {
+  display: inline-block;
+  background: rgba(255,126,201,0.15);
+  border: 1px solid rgba(255,126,201,0.4);
+  color: #ff7ec9; font-size: 13px; font-weight: 700;
+  padding: 6px 22px; border-radius: 99px; letter-spacing: 2px;
+  backdrop-filter: blur(8px);
+}
+
+/* MARQUEE */
+.marquee-section {
+  overflow: hidden; padding: 12px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+.marquee-lane {
+  display: flex; gap: 18px;
+  width: max-content; margin-bottom: 18px;
+  animation: scrollLeft 40s linear infinite;
+}
+.marquee-lane.reverse { animation: scrollRight 45s linear infinite; }
+.marquee-lane.slow    { animation: scrollLeft 55s linear infinite; }
+@keyframes scrollLeft  { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes scrollRight { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
+.marquee-section:hover .marquee-lane { animation-play-state: paused; }
+
+/* CARD */
+.card {
+  background: rgba(13,8,32,0.55);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  width: 220px; flex-shrink: 0;
+  backdrop-filter: blur(14px);
+  position: relative; overflow: hidden;
+  transition: transform .25s ease, border-color .25s ease;
+  cursor: default;
+}
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.card[data-color="pink"]::before   { background: linear-gradient(90deg,#ff7ec9,#ffb347); }
+.card[data-color="teal"]::before   { background: linear-gradient(90deg,#7ee8ff,#5fbfff); }
+.card[data-color="purple"]::before { background: linear-gradient(90deg,#c67fff,#ff7ec9); }
+.card[data-color="yellow"]::before { background: linear-gradient(90deg,#ffec6e,#ff9e2c); }
+.card[data-color="green"]::before  { background: linear-gradient(90deg,#7effa0,#5fd4c4); }
+.card:hover { transform: scale(1.05); border-color: rgba(255,255,255,0.3); }
+
+.card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.card-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.card[data-color="pink"]   .card-icon { background: linear-gradient(135deg,#ff7ec9,#ffb347); }
+.card[data-color="teal"]   .card-icon { background: linear-gradient(135deg,#7ee8ff,#5fbfff); }
+.card[data-color="purple"] .card-icon { background: linear-gradient(135deg,#c67fff,#ff7ec9); }
+.card[data-color="yellow"] .card-icon { background: linear-gradient(135deg,#ffec6e,#ff9e2c); }
+.card[data-color="green"]  .card-icon { background: linear-gradient(135deg,#7effa0,#5fd4c4); }
+
+.card-name { font-size: 14px; font-weight: 900; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-sns  { font-size: 11px; font-weight: 700; text-decoration: none; display: block; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.85; }
+.card[data-color="pink"]   .card-sns { color: #ff7ec9; }
+.card[data-color="teal"]   .card-sns { color: #7ee8ff; }
+.card[data-color="purple"] .card-sns { color: #c67fff; }
+.card[data-color="yellow"] .card-sns { color: #ffec6e; }
+.card[data-color="green"]  .card-sns { color: #7effa0; }
+.card-sns:hover { opacity: 1; text-decoration: underline; }
+.card-message {
+  font-size: 11px; line-height: 1.75; color: rgba(255,255,255,0.6);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 8px; margin-top: 4px;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-message.hidden { display: none; }
+
+/* FOOTER */
+.footer-area {
+  text-align: center; padding: 72px 24px 64px;
+}
+.footer-area .thanks {
+  font-size: clamp(22px,5vw,40px); font-weight: 900;
+  background: linear-gradient(120deg,#ff7ec9,#ffb347,#7ee8ff);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; animation: textShimmer 4s linear infinite;
+  margin-bottom: 16px;
+}
+.footer-area p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 2; }
+
+@media (max-width: 600px) {
+  .bg-photos { grid-template-columns: 1fr; }
+  .bg-photos .bg-photo:nth-child(2),
+  .bg-photos .bg-photo:nth-child(3) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 背景：縦長3枚横並び ===== -->
+<!--
+  写真の変更方法：
+  各 <img src="..."> の src を自分の画像ファイル名に変えてください。
+  HTMLファイルと同じフォルダに画像を置いてください。
+
+  例: src="photo_left.jpg"  /  src="photo_center.jpg"  /  src="photo_right.jpg"
+-->
+<div class="bg-photos">
+  <div class="bg-photo">
+    <img src="東京公演イメージ.png" alt=""
+         onerror="this.style.display='none';this.parentNode.querySelector('.bg-placeholder').style.display='flex'">
+    <div class="bg-placeholder" style="display:none">東京公演イメージ.png</div>
+  </div>
+  <div class="bg-photo">
+    <img src="大阪公演イメージ.png" alt=""
+         onerror="this.style.display='none';this.parentNode.querySelector('.bg-placeholder').style.display='flex'">
+    <div class="bg-placeholder" style="display:none">大阪公演イメージ.png</div>
+  </div>
+  <div class="bg-photo">
+    <img src="名古屋公演イメージ.png" alt=""
+         onerror="this.style.display='none';this.parentNode.querySelector('.bg-placeholder').style.display='flex'">
+    <div class="bg-placeholder" style="display:none">名古屋公演イメージ.png</div>
+  </div>
+</div>
+
+<div class="bg-overlay"></div>
+
+<!-- ===== コンテンツ ===== -->
+<div class="content">
+  <section class="hero">
+    <div class="hero-eyebrow">✦ Flower Stand Project ✦</div>
+    <h1>フラスタ協賛者様</h1>
+    <h2>ご参加いただきありがとうございました</h2>
+    <div class="deco-row">
+      <span>🏠</span><span>🐈</span><span>💐</span><span>🌹</span><span>🌺</span>
+    </div>
+  </section>
+
+  <div class="count-badge">
+    <span id="count-label">✦ 協賛者 0名 ✦</span>
+  </div>
+
+  <div class="marquee-section" id="marquee-section"></div>
+
+  <div class="footer-area">
+    <div class="thanks">ありがとうございました 🌸</div>
+    <p>皆さんのおかげで最高の企画になりました。<br>これからも応援よろしくお願いします！</p>
+  </div>
+</div>
+
+<script>
+/* =====================================================
+   ★★★ 参加者リスト ★★★
+   ここだけ編集してください！
+
+   形式：
+   { emoji:"絵文字", name:"名前", sns:"@アカウント名", url:"SNSのURL", msg:"メッセージ" },
+
+   ・msg が不要なら "" にしてください
+   ・url は Instagram → "https://instagram.com/アカウント名"
+            X(旧Twitter) → "https://x.com/アカウント名"
+   ・SNSなしの場合は sns:"" url:"" にしてください
+===================================================== */
+const PARTICIPANTS = [
+  { emoji:"🌸", name:"REI",   sns:"@ROMAN71868299",   url:"https://x.com/ROMAN71868299",  msg:"企画ありがとうございます。参加させていただきます。" },
+  { emoji:"🌷", name:"ミケ", sns:"@Sg_fanmike",   url:"https://x.com/Sg_fanmike",          msg:"企画ありがとうございます!!各公演のフラスタ楽しみにしてますねー！" },
+  { emoji:"🌼", name:"ととまる", sns:"@himari_t",   url:"https://instagram.com/himari_example",  msg:"会場がはなやかになりますよーに！" },
+  { emoji:"🌺", name:"沈歌", sns:"@ayaka_s",    url:"https://instagram.com/ayaka_example",   msg:"こんなに可愛いスタンドになるとは！感激です✨" },
+  { emoji:"🌻", name:"DKわか",   sns:"@miku_ito",   url:"https://x.com/miku_example",            msg:"お花に囲まれて最高でした🌻ありがとうございます！" },
+  { emoji:"💐", name:"こませ",   sns:"@rei_w",      url:"https://instagram.com/rei_example",     msg:"初めて参加しましたが温かい企画で嬉しかったです🌷" },
+  { emoji:"🌹", name:"エスパーいとー",   sns:"@yui_n",      url:"https://instagram.com/yui_example",     msg:"大好きな推しにお花を贈れて最高でした🌹" },
+  { emoji:"🌈", name:"はな",   sns:"@nana_k",     url:"https://x.com/nana_example",            msg:"いつも応援しています。これからもよろしくね💖" },
+  { emoji:"🦋", name:"hideひで",   sns:"@mai_kato",   url:"https://instagram.com/mai_example",     msg:"みんなの愛が詰まった素敵なスタンドでした🦋" },
+  { emoji:"⭐", name:"葉っぱ",   sns:"@luna_m",     url:"https://instagram.com/luna_example",    msg:"次の企画も絶対参加します！ありがとうございました⭐" },
+  { emoji:"🎀", name:"黄-ファン-",   sns:"@ai_inoue",   url:"https://x.com/ai_example",              msg:"お花の写真、保存しました！とても綺麗でした🎀" },
+  { emoji:"💫", name:"Tetuki",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"黒ラムネ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"とゆ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"S",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"hashiro",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"羽琉　南波",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"croyuki",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"まるいひと。",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"langryun",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ひっしー",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"清澄望",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"銀之四季",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ﾀﾅｶﾎﾉｶ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"こっち",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"名名し",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"生芝",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"にじ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"しろうと",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"乳酸菌",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"こーく",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"りべろーる",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"るーさん",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"S4M58",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ポムポムボム",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"めありー",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ニューボルドー",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"みり",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"Masa",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"L. (@thekissandfly)",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"衣",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"アマオー",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"Beijing",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"きなっぴー",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"天然",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"やゆ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+　{ emoji:"💫", name:"けー",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"あきらか",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"chamo",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"まどろみこあら",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"薄あさぎ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"Gekken",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"1412Seiba",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ぴーかS",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"凪生",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"レティ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"もち",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"シムロ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"しあん",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"クローバー",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ねくと",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ぴっぽぽ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ぽてと",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"やまこう",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"焙煎",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"おたまいける。",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ステラ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"仁",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"唯一無二が好き",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"鰹武士",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"レイス",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"I",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"疾兎",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"かぼす",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"はせ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"Cú_4",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"およげないさめ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"のうの",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"霜野",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ののまる",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"れお",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"とらねこ",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+  { emoji:"💫", name:"ペケマル",   sns:"@noa_k",      url:"https://instagram.com/noa_example",     msg:"こんな素敵な企画を主催してくれてありがとう💫" },
+ 
+
+  /* ↑ サンプルです。同じ形式で90名分追加してください */
+];
+/* ===================================================== */
+
+const COLORS = ["pink","teal","purple","yellow","green"];
+const EMOJIS = ["🌸","🌷","🌼","🌺","🌻","💐","🌹","⭐","🌈","🦋","🎀","💫","✨","🎵","🍀"];
+const LANES  = 3;
+
+function buildCard(p, idx) {
+  const color = COLORS[idx % COLORS.length];
+  const emoji = p.emoji || EMOJIS[idx % EMOJIS.length];
+  const card  = document.createElement('div');
+  card.className = 'card';
+  card.dataset.color = color;
+  const snsHTML = p.sns && p.url
+    ? `<a class="card-sns" href="${p.url}" target="_blank">${p.sns}</a>`
+    : p.sns ? `<span class="card-sns" style="cursor:default">${p.sns}</span>` : '';
+  const msgHTML = p.msg
+    ? `<div class="card-message">${p.msg}</div>`
+    : `<div class="card-message hidden"></div>`;
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="card-icon">${emoji}</div>
+      <div style="min-width:0">
+        <div class="card-name">${p.name}</div>
+        ${snsHTML}
+      </div>
+    </div>${msgHTML}`;
+  return card;
+}
+
+function buildLanes() {
+  const section = document.getElementById('marquee-section');
+  const groups  = Array.from({length: LANES}, () => []);
+  PARTICIPANTS.forEach((p, i) => groups[i % LANES].push({p, i}));
+  const laneClasses = ['', 'reverse', 'slow'];
+  groups.forEach((group, li) => {
+    if (!group.length) return;
+    const lane = document.createElement('div');
+    lane.className = `marquee-lane ${laneClasses[li]}`;
+    [0, 1].forEach(() => group.forEach(({p, i}) => lane.appendChild(buildCard(p, i))));
+    section.appendChild(lane);
+  });
+  document.getElementById('count-label').textContent = `✦ 協賛者 ${PARTICIPANTS.length}名 ✦`;
+}
+buildLanes();
+</script>
+</body>
+</html>
