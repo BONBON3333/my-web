@@ -14,7 +14,7 @@ body {
   min-height: 100vh;
 }
 
-/* ===== 背景：3枚の縦長写真を横並び ===== */
+
 .bg-photos {
   position: fixed;
   inset: 0;
@@ -209,14 +209,6 @@ body {
 </head>
 <body>
 
-<!-- ===== 背景：縦長3枚横並び ===== -->
-<!--
-  写真の変更方法：
-  各 <img src="..."> の src を自分の画像ファイル名に変えてください。
-  HTMLファイルと同じフォルダに画像を置いてください。
-
-  例: src="photo_left.jpg"  /  src="photo_center.jpg"  /  src="photo_right.jpg"
--->
 <div class="bg-photos">
   <div class="bg-photo">
     <img src="1t.png" alt=""
@@ -355,7 +347,7 @@ const PARTICIPANTS = [
 
 const COLORS = ["pink","teal","purple","yellow","green"];
 const EMOJIS = ["🌸","🌷","🌼","🌺","🌻","💐","🌹","⭐","🌈","🦋","🎀","💫","✨","🎵","🍀"];
-const LANES  = 3;
+const LANES  = 6;
 
 function buildCard(p, idx) {
   const color = COLORS[idx % COLORS.length];
