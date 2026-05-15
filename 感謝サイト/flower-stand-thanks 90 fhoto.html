@@ -4,238 +4,322 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>フラスタ協賛者様</title>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:       #fdf6f9;
+  --bg2:      #fff8fb;
+  --text:     #2e1a2e;
+  --sub:      #9a7aaa;
+  --pink:     #e8609a;
+  --pink-l:   #f7c5d8;
+  --purple:   #b07fd4;
+  --teal:     #5dbfb8;
+  --yellow:   #f0c040;
+  --green:    #72c48a;
+  --card-bg:  rgba(255,255,255,0.75);
+  --card-border: rgba(232,96,154,0.18);
+}
+
 body {
   font-family: 'Zen Maru Gothic', sans-serif;
-  color: #fff;
+  background: var(--bg);
+  color: var(--text);
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-
-.photo-section {
-  width: 100%;
-  height: 80vh;  ← 画面の高さの80%
-  position: relative;  ← 通常の配置に
-  overflow: hidden;
-}
-
-.photo-section::after {
+/* ===== 全体の淡いドット背景 ===== */
+body::before {
   content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 180px;
-  background: linear-gradient(to bottom, transparent, #0d0820);
-}
-  
-.bg-photos .bg-photo {
-  height: 100%;
-  overflow: hidden;
-}
-.bg-photos .bg-photo img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  filter: brightness(0.38) saturate(0.85);
-}
-/* 画像未設定時のプレースホルダー */
-.bg-photos .bg-photo .bg-placeholder {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: rgba(182, 90, 90, 0.2);
-  text-align: center; line-height: 2;
-}
-/* 写真の境界線 */
-.bg-photos .bg-photo + .bg-photo {
-  border-left: 1px solid rgba(255,255,255,0.1);
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(232,96,154,0.12) 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+  pointer-events: none; z-index: 0;
 }
 
-
-/* ===== コンテンツ層 ===== */
-.content {
-  position: relative; z-index: 2;
-  min-height: 100vh;
-}
-
-/* HERO */
+/* ===== HERO ===== */
 .hero {
+  position: relative; z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 24px 0;
   text-align: center;
-  padding: 72px 24px 56px;
 }
+
 .hero-eyebrow {
-  display: inline-block;
-  font-size: 12px; letter-spacing: 4px; font-weight: 700;
-  color: #ffb3d9;
-  border: 1.5px solid rgba(255,179,217,0.45);
-  padding: 6px 22px; border-radius: 99px; margin-bottom: 26px;
-  background: rgba(13,8,32,0.4);
-  backdrop-filter: blur(8px);
+  font-size: 11px; letter-spacing: 5px; font-weight: 700;
+  color: var(--pink);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.8;
 }
+
 .hero h1 {
-  font-weight: 900;
-  font-size: clamp(34px, 8vw, 76px);
-  line-height: 1.15; margin-bottom: 10px;
-  background: linear-gradient(120deg, #ff7ec9, #ffb347, #7ee8ff, #c67fff);
-  background-size: 300% auto;
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: clamp(28px, 6vw, 56px);
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 12px;
+  letter-spacing: 3px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--pink), var(--purple));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: textShimmer 5s linear infinite;
-  text-shadow: none;
-}
-@keyframes textShimmer {
-  0%{background-position:0% center} 100%{background-position:300% center}
-}
-.hero h2 {
-  font-size: clamp(13px, 2.5vw, 18px); font-weight: 400;
-  color: rgba(255,255,255,0.6); margin-bottom: 44px; letter-spacing: 2px;
-}
-.deco-row { display: flex; justify-content: center; gap: 16px; font-size: 28px; }
-.deco-row span { display: inline-block; animation: bounce 2.2s ease-in-out infinite; }
-.deco-row span:nth-child(2){animation-delay:.25s}
-.deco-row span:nth-child(3){animation-delay:.5s}
-.deco-row span:nth-child(4){animation-delay:.75s}
-.deco-row span:nth-child(5){animation-delay:1s}
-@keyframes bounce {
-  0%,100%{transform:translateY(0) rotate(-6deg);}
-  50%{transform:translateY(-10px) rotate(6deg);}
 }
 
-/* COUNT BADGE */
+.hero-sub {
+  font-size: clamp(13px, 2vw, 15px);
+  color: var(--sub);
+  line-height: 2;
+  font-weight: 400;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+/* ===== イラストエリア ===== */
+/*
+  イラストはここに配置しています。
+  src="image1.jpg" を実際のファイル名に変えてください。
+  高さは --illust-h で調整できます（大きいほど高くなります）
+*/
+:root { --illust-h: 480px; }
+
+.illust-frame {
+  position: relative;
+  width: min(360px, 88vw);
+  height: var(--illust-h);
+  margin: 0 auto;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+  box-shadow:
+    0 -2px 0 rgba(232,96,154,0.2),
+    0 20px 60px rgba(176,127,212,0.15),
+    0 4px 20px rgba(232,96,154,0.1);
+  border: 1.5px solid var(--pink-l);
+  border-bottom: none;
+}
+
+.illust-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top;   /* ← 顔が見切れる場合: top / center / 50% 15% などで調整 */
+  display: block;
+}
+
+/* 画像未設定プレースホルダー */
+.illust-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #fdeaf2, #f5eafd);
+  color: var(--sub); font-size: 13px; gap: 10px; text-align: center; padding: 24px;
+}
+.illust-placeholder span { font-size: 40px; }
+
+/* イラストの足元をページ背景にふわっとなじませる */
+.illust-fade {
+  position: relative; z-index: 1;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  margin-top: -2px;
+}
+
+/* ===== 区切り装飾 ===== */
+.divider {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 32px 24px 40px;
+}
+.divider-line {
+  flex: 1; max-width: 120px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--pink-l));
+}
+.divider-line.r { background: linear-gradient(to left, transparent, var(--pink-l)); }
+.divider-flowers { font-size: 18px; letter-spacing: 8px; opacity: 0.6; }
+
+/* ===== COUNT BADGE ===== */
 .count-badge {
-  text-align: center; padding: 48px 24px 28px;
+  position: relative; z-index: 1;
+  text-align: center; padding: 0 24px 36px;
 }
 .count-badge span {
   display: inline-block;
-  background: rgba(255,126,201,0.15);
-  border: 1px solid rgba(255,126,201,0.4);
-  color: #ff7ec9; font-size: 13px; font-weight: 700;
-  padding: 6px 22px; border-radius: 99px; letter-spacing: 2px;
-  backdrop-filter: blur(8px);
+  background: linear-gradient(120deg, var(--pink), var(--purple));
+  color: #fff; font-size: 13px; font-weight: 700;
+  padding: 7px 24px; border-radius: 99px; letter-spacing: 2px;
+  box-shadow: 0 4px 16px rgba(232,96,154,0.25);
 }
 
-/* MARQUEE */
+/* ===== MARQUEE ===== */
 .marquee-section {
-  overflow: hidden; padding: 12px 0;
+  position: relative; z-index: 1;
+  overflow: hidden; padding: 8px 0;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 .marquee-lane {
-  display: flex; gap: 18px;
-  width: max-content; margin-bottom: 18px;
-  animation: scrollLeft 40s linear infinite;
+  display: flex; gap: 16px;
+  width: max-content; margin-bottom: 16px;
+  animation: scrollLeft 38s linear infinite;
 }
-.marquee-lane.reverse { animation: scrollRight 45s linear infinite; }
-.marquee-lane.slow    { animation: scrollLeft 55s linear infinite; }
+.marquee-lane.reverse { animation: scrollRight 44s linear infinite; }
+.marquee-lane.slow    { animation: scrollLeft  54s linear infinite; }
 @keyframes scrollLeft  { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 @keyframes scrollRight { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
 .marquee-section:hover .marquee-lane { animation-play-state: paused; }
 
-/* CARD */
+/* ===== CARD ===== */
 .card {
-  background: rgba(13,8,32,0.55);
-  border: 1.5px solid rgba(255,255,255,0.13);
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
   border-radius: 18px;
-  padding: 18px 18px 16px;
-  width: 220px; flex-shrink: 0;
-  backdrop-filter: blur(14px);
+  padding: 18px 18px 15px;
+  width: 218px; flex-shrink: 0;
+  backdrop-filter: blur(8px);
   position: relative; overflow: hidden;
-  transition: transform .25s ease, border-color .25s ease;
+  transition: transform .25s ease, box-shadow .25s ease;
   cursor: default;
+  box-shadow: 0 2px 12px rgba(176,127,212,0.08);
 }
 .card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 18px 18px 0 0;
 }
-.card[data-color="pink"]::before   { background: linear-gradient(90deg,#ff7ec9,#ffb347); }
-.card[data-color="teal"]::before   { background: linear-gradient(90deg,#7ee8ff,#5fbfff); }
-.card[data-color="purple"]::before { background: linear-gradient(90deg,#c67fff,#ff7ec9); }
-.card[data-color="yellow"]::before { background: linear-gradient(90deg,#ffec6e,#ff9e2c); }
-.card[data-color="green"]::before  { background: linear-gradient(90deg,#7effa0,#5fd4c4); }
-.card:hover { transform: scale(1.05); border-color: rgba(255,255,255,0.3); }
+.card[data-color="pink"]::before   { background: linear-gradient(90deg,#e8609a,#f0a0c0); }
+.card[data-color="purple"]::before { background: linear-gradient(90deg,#b07fd4,#e8609a); }
+.card[data-color="teal"]::before   { background: linear-gradient(90deg,#5dbfb8,#72c48a); }
+.card[data-color="yellow"]::before { background: linear-gradient(90deg,#f0c040,#e8a060); }
+.card[data-color="green"]::before  { background: linear-gradient(90deg,#72c48a,#5dbfb8); }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(176,127,212,0.18);
+}
 
-.card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
 .card-icon {
   width: 40px; height: 40px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: 20px; flex-shrink: 0;
 }
-.card[data-color="pink"]   .card-icon { background: linear-gradient(135deg,#ff7ec9,#ffb347); }
-.card[data-color="teal"]   .card-icon { background: linear-gradient(135deg,#7ee8ff,#5fbfff); }
-.card[data-color="purple"] .card-icon { background: linear-gradient(135deg,#c67fff,#ff7ec9); }
-.card[data-color="yellow"] .card-icon { background: linear-gradient(135deg,#ffec6e,#ff9e2c); }
-.card[data-color="green"]  .card-icon { background: linear-gradient(135deg,#7effa0,#5fd4c4); }
+.card[data-color="pink"]   .card-icon { background: linear-gradient(135deg,#fdeaf2,#f7c5d8); }
+.card[data-color="purple"] .card-icon { background: linear-gradient(135deg,#f0e6fa,#ddc8f5); }
+.card[data-color="teal"]   .card-icon { background: linear-gradient(135deg,#e0f5f4,#b8e8e5); }
+.card[data-color="yellow"] .card-icon { background: linear-gradient(135deg,#fef8e0,#fae8b0); }
+.card[data-color="green"]  .card-icon { background: linear-gradient(135deg,#e4f7eb,#c0e8cc); }
 
-.card-name { font-size: 14px; font-weight: 900; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.card-sns  { font-size: 11px; font-weight: 700; text-decoration: none; display: block; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: 0.85; }
-.card[data-color="pink"]   .card-sns { color: #ff7ec9; }
-.card[data-color="teal"]   .card-sns { color: #7ee8ff; }
-.card[data-color="purple"] .card-sns { color: #c67fff; }
-.card[data-color="yellow"] .card-sns { color: #ffec6e; }
-.card[data-color="green"]  .card-sns { color: #7effa0; }
-.card-sns:hover { opacity: 1; text-decoration: underline; }
+.card-name { font-size: 14px; font-weight: 900; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-sns  {
+  font-size: 11px; font-weight: 700; text-decoration: none;
+  display: inline-block; margin-top: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+.card[data-color="pink"]   .card-sns { color: var(--pink); }
+.card[data-color="purple"] .card-sns { color: var(--purple); }
+.card[data-color="teal"]   .card-sns { color: var(--teal); }
+.card[data-color="yellow"] .card-sns { color: #c07820; }
+.card[data-color="green"]  .card-sns { color: #3a9a58; }
+.card-sns:hover { opacity: 0.75; }
+
 .card-message {
-  font-size: 11px; line-height: 1.75; color: rgba(255,255,255,0.6);
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 8px; margin-top: 4px;
+  font-size: 11px; line-height: 1.8; color: var(--sub);
+  border-top: 1px solid rgba(232,96,154,0.12);
+  padding-top: 9px; margin-top: 3px;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .card-message.hidden { display: none; }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
+.footer-divider {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 48px 24px 32px;
+}
 .footer-area {
-  text-align: center; padding: 72px 24px 64px;
+  position: relative; z-index: 1;
+  text-align: center; padding: 0 24px 72px;
 }
 .footer-area .thanks {
-  font-size: clamp(22px,5vw,40px); font-weight: 900;
-  background: linear-gradient(120deg,#ff7ec9,#ffb347,#7ee8ff);
-  background-size: 200% auto;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; animation: textShimmer 4s linear infinite;
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(22px, 5vw, 38px);
+  font-weight: 600; letter-spacing: 4px;
+  color: var(--text);
   margin-bottom: 16px;
 }
-.footer-area p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 2; }
-
-@media (max-width: 600px) {
-  .bg-photos { grid-template-columns: 1fr; }
-  .bg-photos .bg-photo:nth-child(2),
-  .bg-photos .bg-photo:nth-child(3) { display: none; }
+.footer-area .thanks em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--pink), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+.footer-area p { font-size: 13px; color: var(--sub); line-height: 2.2; }
+.footer-flowers { font-size: 20px; letter-spacing: 10px; opacity: 0.5; margin-top: 28px; }
 </style>
 </head>
 <body>
 
-<div class="bg-photos">
-  <div class="bg-photo">
-    <img src="1t.png" alt=""
-         onerror="this.style.display='none';this.parentNode.querySelector('.bg-placeholder').style.display='flex'">
-    <div class="bg-placeholder" style="display:none">1t.png</div>
+<section class="hero">
+  <div class="hero-eyebrow">✦ Flower Stand Project ✦</div>
+  <h1>
+    <em>菅原圭<br>
+    one-man live B.G.M.<br>
+    フラワースタンド<br>
+    協賛者様</em></h1>
+  <p class="hero-sub">
+    ご参加・ご支援いただき、本当にありがとうございました。<br>
+    皆さまの温かいお気持ちが、素敵なフラワースタンドになりました。
+  </p>
+
+  <!-- =============================================
+    ★ イラスト画像
+    src="image1.jpg" → 実際のファイル名に変更してください
+    高さ調整 → CSSの --illust-h: 480px の数値を変えてください
+    表示位置 → object-position: top を変えてください
+  ============================================= -->
+  <div class="illust-frame">
+    <img src="1t.png" alt="フラスタイラスト"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="illust-placeholder" style="display:none">
+      <span>🌸</span>
+      image1.jpg を<br>同じフォルダに置いてください
+    </div>
   </div>
+</section>
+
+<div class="illust-fade"></div>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-flowers">🌷 🌼 ☕</div>
+  <div class="divider-line r"></div>
 </div>
 
+<div class="count-badge">
+  <span id="count-label">✦ 協賛者 89名 ✦</span>
+</div>
 
-<!-- ===== コンテンツ ===== -->
-<div class="content">
-  <section class="hero">
-    <div class="hero-eyebrow">✦ Flower Stand Project ✦</div>
-    <h1>フラスタ協賛者様</h1>
-    <h2>ご参加いただきありがとうございました</h2>
-    <div class="deco-row">
-      <span>🏠</span><span>🐈</span><span>💐</span><span>🌹</span><span>🌺</span>
-    </div>
-  </section>
+<div class="marquee-section" id="marquee-section"></div>
 
-  <div class="count-badge">
-    <span id="count-label">✦ 協賛者 0名 ✦</span>
-  </div>
+<div class="footer-divider">
+  <div class="divider-line"></div>
+  <div class="divider-flowers">⭐ 💐 💫</div>
+  <div class="divider-line r"></div>
+</div>
 
-  <div class="marquee-section" id="marquee-section"></div>
-
-  <div class="footer-area">
-    <div class="thanks">ありがとうございました 🌸</div>
-    <p>皆さんのおかげで最高の企画になりました。<br>これからも応援よろしくお願いします！</p>
-  </div>
+<div class="footer-area">
+  <div class="thanks"><em>ありがとうございました</em></div>
+  <p>
+    皆さんのおかげで最高の企画になりました。<br>
+  </p>
+  <div class="footer-flowers">☕ 🏠 💐 🐈 🌼 </div>
 </div>
 
 <script>
@@ -256,94 +340,92 @@ const PARTICIPANTS = [
   { emoji:"🌷", name:"ミケ" },
   { emoji:"🌼", name:"ととまる"},
   { emoji:"🌺", name:"沈歌"},
-  { emoji:"🌻", name:"DKわか"},
+  { emoji:"⭐", name:"DKわか"},
   { emoji:"💐", name:"こませ"},
   { emoji:"🌹", name:"エスパーいとー"},
   { emoji:"🌈", name:"はな"},
   { emoji:"🦋", name:"hideひで" },
   { emoji:"⭐", name:"葉っぱ"},
   { emoji:"🎀", name:"黄-ファン-"},
-  { emoji:"💫", name:"Tetuki"},
-  { emoji:"💫", name:"黒ラムネ"},
-  { emoji:"💫", name:"とゆ"},
-  { emoji:"💫", name:"S"},
+  { emoji:"🌼", name:"Tetuki"},
+  { emoji:"💐", name:"黒ラムネ"},
+  { emoji:"🏠", name:"とゆ"},
+  { emoji:"🌼", name:"S"},
   { emoji:"💫", name:"hashiro"},
-  { emoji:"💫", name:"羽琉　南波"},
-  { emoji:"💫", name:"croyuki"},
-  { emoji:"💫", name:"まるいひと。"},
+  { emoji:"💐", name:"羽琉　南波"},
+  { emoji:"🏠", name:"croyuki"},
+  { emoji:"🌼", name:"まるいひと。"},
   { emoji:"💫", name:"langryun"},
-  { emoji:"💫", name:"ひっしー"},
-  { emoji:"💫", name:"清澄望"},
-  { emoji:"💫", name:"銀之四季"},
+  { emoji:"💐", name:"ひっしー"},
+  { emoji:"🏠", name:"清澄望"},
+  { emoji:"🌼", name:"銀之四季"},
   { emoji:"💫", name:"ﾀﾅｶﾎﾉｶ"},
-  { emoji:"💫", name:"こっち"},
+  { emoji:"🌹", name:"こっち"},
   { emoji:"💫", name:"名名し"},
-  { emoji:"💫", name:"生芝"},
-  { emoji:"💫", name:"にじ"},
-  { emoji:"💫", name:"しろうと"},
+  { emoji:"💐", name:"生芝"},
+  { emoji:"🌼", name:"にじ"},
+  { emoji:"🏠", name:"しろうと"},
   { emoji:"💫", name:"乳酸菌"},
-  { emoji:"💫", name:"こーく"},
+  { emoji:"🌹", name:"こーく"},
   { emoji:"💫", name:"りべろーる"},
-  { emoji:"💫", name:"るーさん"},
-  { emoji:"💫", name:"S4M58"},
-  { emoji:"💫", name:"ポムポムボム"},
+  { emoji:"💐", name:"るーさん"},
+  { emoji:"🌼", name:"S4M58"},
+  { emoji:"🏠", name:"ポムポムボム"},
   { emoji:"💫", name:"めありー"},
-  { emoji:"💫", name:"ニューボルドー"},
-  { emoji:"💫", name:"みり"},
+  { emoji:"🌹", name:"ニューボルドー"},
+  { emoji:"💐", name:"みり"},
   { emoji:"💫", name:"Masa"},
-  { emoji:"💫", name:"L. (@thekissandfly)"},
-  { emoji:"💫", name:"衣"},
+  { emoji:"🌼", name:"L. (@thekissandfly)"},
+  { emoji:"🏠", name:"衣"},
   { emoji:"💫", name:"アマオー"},
-  { emoji:"💫", name:"Beijing"},
-  { emoji:"💫", name:"きなっぴー"},
-  { emoji:"💫", name:"天然"},
-  { emoji:"💫", name:"やゆ"},
+  { emoji:"🌹", name:"Beijing"},
+  { emoji:"🏠", name:"きなっぴー"},
+  { emoji:"🌼", name:"天然"},
+  { emoji:"💐", name:"やゆ"},
 　{ emoji:"💫", name:"けー"},
-  { emoji:"💫", name:"あきらか"},
-  { emoji:"💫", name:"chamo"},
-  { emoji:"💫", name:"まどろみこあら"},
-  { emoji:"💫", name:"薄あさぎ"},
-  { emoji:"💫", name:"Gekken"},
+  { emoji:"🏠", name:"あきらか"},
+  { emoji:"💐", name:"chamo"},
+  { emoji:"🌼", name:"まどろみこあら"},
+  { emoji:"⭐", name:"薄あさぎ"},
+  { emoji:"🌹", name:"Gekken"},
   { emoji:"💫", name:"1412Seiba"},
-  { emoji:"💫", name:"ぴーかS"},
-  { emoji:"💫", name:"凪生"},
-  { emoji:"💫", name:"レティ"},
-  { emoji:"💫", name:"もち"},
+  { emoji:"💐", name:"ぴーかS"},
+  { emoji:"🌼", name:"凪生"},
+  { emoji:"🏠", name:"レティ"},
+  { emoji:"⭐", name:"もち"},
   { emoji:"💫", name:"シムロ"},
-  { emoji:"💫", name:"しあん"},
+  { emoji:"🌹", name:"しあん"},
   { emoji:"💫", name:"クローバー"},
-  { emoji:"💫", name:"ねくと"},
-  { emoji:"💫", name:"ぴっぽぽ"},
-  { emoji:"💫", name:"ぽてと"},
-  { emoji:"💫", name:"やまこう"},
+  { emoji:"⭐", name:"ねくと"},
+  { emoji:"💐", name:"ぴっぽぽ"},
+  { emoji:"🌼", name:"ぽてと"},
+  { emoji:"🏠", name:"やまこう"},
   { emoji:"💫", name:"焙煎"},
-  { emoji:"💫", name:"おたまいける。"},
+  { emoji:"🌹", name:"おたまいける。"},
   { emoji:"💫", name:"ステラ"},
-  { emoji:"💫", name:"仁"},
+  { emoji:"⭐", name:"仁"},
   { emoji:"💫", name:"唯一無二が好き"},
   { emoji:"💫", name:"鰹武士"},
-  { emoji:"💫", name:"レイス"},
-  { emoji:"💫", name:"I"},
-  { emoji:"💫", name:"疾兎"},
+  { emoji:"💐", name:"レイス"},
+  { emoji:"🌼", name:"I"},
+  { emoji:"🏠", name:"疾兎"},
   { emoji:"💫", name:"かぼす"},
-  { emoji:"💫", name:"はせ"},
-  { emoji:"💫", name:"Cú_4"},
+  { emoji:"🌹", name:"はせ"},
+  { emoji:"⭐", name:"Cú_4"},
   { emoji:"💫", name:"およげないさめ"},
   { emoji:"💫", name:"のうの"},
-  { emoji:"💫", name:"霜野"},
-  { emoji:"💫", name:"ののまる"},
-  { emoji:"💫", name:"れお"},
-  { emoji:"💫", name:"とらねこ"},
-  { emoji:"💫", name:"ペケマル"},
- 
-
+  { emoji:"🌹", name:"霜野"},
+  { emoji:"💐", name:"ののまる"},
+  { emoji:"🌼", name:"れお"},
+  { emoji:"🏠", name:"とらねこ"},
+  { emoji:"⭐", name:"ペケマル"},
   /* ↑ サンプルです。同じ形式で90名分追加してください */
 ];
 /* ===================================================== */
 
-const COLORS = ["pink","teal","purple","yellow","green"];
+const COLORS = ["pink","purple","teal","yellow","green"];
 const EMOJIS = ["🌸","🌷","🌼","🌺","🌻","💐","🌹","⭐","🌈","🦋","🎀","💫","✨","🎵","🍀"];
-const LANES  = 4;
+const LANES  = 3;
 
 function buildCard(p, idx) {
   const color = COLORS[idx % COLORS.length];
@@ -360,7 +442,7 @@ function buildCard(p, idx) {
   card.innerHTML = `
     <div class="card-top">
       <div class="card-icon">${emoji}</div>
-      <div style="min-width:0">
+      <div style="min-width:0;flex:1">
         <div class="card-name">${p.name}</div>
         ${snsHTML}
       </div>
@@ -380,7 +462,6 @@ function buildLanes() {
     [0, 1].forEach(() => group.forEach(({p, i}) => lane.appendChild(buildCard(p, i))));
     section.appendChild(lane);
   });
-  document.getElementById('count-label').textContent = `✦ 協賛者 ${PARTICIPANTS.length}名 ✦`;
 }
 buildLanes();
 </script>
