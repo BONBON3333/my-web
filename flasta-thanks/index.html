@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フラスタ協賛者様</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg:       #fdf6f9;
+  --bg2:      #fff8fb;
+  --text:     #2e1a2e;
+  --sub:      #9a7aaa;
+  --pink:     #e8609a;
+  --pink-l:   #f7c5d8;
+  --purple:   #b07fd4;
+  --teal:     #5dbfb8;
+  --yellow:   #f0c040;
+  --green:    #72c48a;
+  --card-bg:  rgba(255,255,255,0.75);
+  --card-border: rgba(232,96,154,0.18);
+}
+
+body {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== 全体の淡いドット背景 ===== */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(232,96,154,0.12) 1.2px, transparent 1.2px);
+  background-size: 32px 32px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative; z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 24px 0;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 5px; font-weight: 700;
+  color: var(--pink);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.hero h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: clamp(28px, 6vw, 56px);
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 12px;
+  letter-spacing: 3px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--pink), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(13px, 2vw, 15px);
+  color: var(--sub);
+  line-height: 2;
+  font-weight: 400;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+/* ===== イラストエリア ===== */
+/*
+  イラストはここに配置しています。
+  src="image1.jpg" を実際のファイル名に変えてください。
+  高さは --illust-h で調整できます（大きいほど高くなります）
+*/
+:root { --illust-h: 480px; }
+
+.illust-frame {
+  position: relative;
+  width: min(360px, 88vw);
+  height: var(--illust-h);
+  margin: 0 auto;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+  box-shadow:
+    0 -2px 0 rgba(232,96,154,0.2),
+    0 20px 60px rgba(176,127,212,0.15),
+    0 4px 20px rgba(232,96,154,0.1);
+  border: 1.5px solid var(--pink-l);
+  border-bottom: none;
+}
+
+.illust-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top;   /* ← 顔が見切れる場合: top / center / 50% 15% などで調整 */
+  display: block;
+}
+
+/* 画像未設定プレースホルダー */
+.illust-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: linear-gradient(160deg, #fdeaf2, #f5eafd);
+  color: var(--sub); font-size: 13px; gap: 10px; text-align: center; padding: 24px;
+}
+.illust-placeholder span { font-size: 40px; }
+
+/* イラストの足元をページ背景にふわっとなじませる */
+.illust-fade {
+  position: relative; z-index: 1;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  margin-top: -2px;
+}
+
+/* ===== 区切り装飾 ===== */
+.divider {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 32px 24px 40px;
+}
+.divider-line {
+  flex: 1; max-width: 120px; height: 1px;
+  background: linear-gradient(to right, transparent, var(--pink-l));
+}
+.divider-line.r { background: linear-gradient(to left, transparent, var(--pink-l)); }
+.divider-flowers { font-size: 18px; letter-spacing: 8px; opacity: 0.6; }
+
+/* ===== COUNT BADGE ===== */
+.count-badge {
+  position: relative; z-index: 1;
+  text-align: center; padding: 0 24px 36px;
+}
+.count-badge span {
+  display: inline-block;
+  background: linear-gradient(120deg, var(--pink), var(--purple));
+  color: #fff; font-size: 13px; font-weight: 700;
+  padding: 7px 24px; border-radius: 99px; letter-spacing: 2px;
+  box-shadow: 0 4px 16px rgba(232,96,154,0.25);
+}
+
+/* ===== MARQUEE ===== */
+.marquee-section {
+  position: relative; z-index: 1;
+  overflow: hidden; padding: 8px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+.marquee-lane {
+  display: flex; gap: 16px;
+  width: max-content; margin-bottom: 16px;
+  animation: scrollLeft 38s linear infinite;
+}
+.marquee-lane.reverse { animation: scrollRight 44s linear infinite; }
+.marquee-lane.slow    { animation: scrollLeft  54s linear infinite; }
+@keyframes scrollLeft  { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes scrollRight { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
+.marquee-section:hover .marquee-lane { animation-play-state: paused; }
+
+/* ===== CARD ===== */
+.card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: 18px;
+  padding: 18px 18px 15px;
+  width: 218px; flex-shrink: 0;
+  backdrop-filter: blur(8px);
+  position: relative; overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease;
+  cursor: default;
+  box-shadow: 0 2px 12px rgba(176,127,212,0.08);
+}
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 18px 18px 0 0;
+}
+.card[data-color="pink"]::before   { background: linear-gradient(90deg,#e8609a,#f0a0c0); }
+.card[data-color="purple"]::before { background: linear-gradient(90deg,#b07fd4,#e8609a); }
+.card[data-color="teal"]::before   { background: linear-gradient(90deg,#5dbfb8,#72c48a); }
+.card[data-color="yellow"]::before { background: linear-gradient(90deg,#f0c040,#e8a060); }
+.card[data-color="green"]::before  { background: linear-gradient(90deg,#72c48a,#5dbfb8); }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(176,127,212,0.18);
+}
+
+.card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
+.card-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.card[data-color="pink"]   .card-icon { background: linear-gradient(135deg,#fdeaf2,#f7c5d8); }
+.card[data-color="purple"] .card-icon { background: linear-gradient(135deg,#f0e6fa,#ddc8f5); }
+.card[data-color="teal"]   .card-icon { background: linear-gradient(135deg,#e0f5f4,#b8e8e5); }
+.card[data-color="yellow"] .card-icon { background: linear-gradient(135deg,#fef8e0,#fae8b0); }
+.card[data-color="green"]  .card-icon { background: linear-gradient(135deg,#e4f7eb,#c0e8cc); }
+
+.card-name { font-size: 14px; font-weight: 900; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-sns  {
+  font-size: 11px; font-weight: 700; text-decoration: none;
+  display: inline-block; margin-top: 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+.card[data-color="pink"]   .card-sns { color: var(--pink); }
+.card[data-color="purple"] .card-sns { color: var(--purple); }
+.card[data-color="teal"]   .card-sns { color: var(--teal); }
+.card[data-color="yellow"] .card-sns { color: #c07820; }
+.card[data-color="green"]  .card-sns { color: #3a9a58; }
+.card-sns:hover { opacity: 0.75; }
+
+.card-message {
+  font-size: 11px; line-height: 1.8; color: var(--sub);
+  border-top: 1px solid rgba(232,96,154,0.12);
+  padding-top: 9px; margin-top: 3px;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-message.hidden { display: none; }
+
+/* ===== FOOTER ===== */
+.footer-divider {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; padding: 48px 24px 32px;
+}
+.footer-area {
+  position: relative; z-index: 1;
+  text-align: center; padding: 0 24px 72px;
+}
+.footer-area .thanks {
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(22px, 5vw, 38px);
+  font-weight: 600; letter-spacing: 4px;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.footer-area .thanks em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--pink), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.footer-area p { font-size: 13px; color: var(--sub); line-height: 2.2; }
+.footer-flowers { font-size: 20px; letter-spacing: 10px; opacity: 0.5; margin-top: 28px; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-eyebrow">✦ Flower Stand Project ✦</div>
+  <h1>
+    <em>菅原圭<br>
+    one-man live B.G.M.<br>
+    フラワースタンド<br>
+    協賛者様</em></h1>
+  <p class="hero-sub">
+    ご参加・ご支援いただき、本当にありがとうございました。<br>
+    皆さまの温かいお気持ちが、素敵なフラワースタンドになりました。
+  </p>
+
+  <!-- =============================================
+    ★ イラスト画像
+    src="image1.jpg" → 実際のファイル名に変更してください
+    高さ調整 → CSSの --illust-h: 480px の数値を変えてください
+    表示位置 → object-position: top を変えてください
+  ============================================= -->
+  <div class="illust-frame">
+    <img src="フラスタ東京.png" alt="フラスタイラスト"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="illust-placeholder" style="display:none">
+      <span>🌸</span>
+      image1.jpg を<br>同じフォルダに置いてください
+    </div>
+  </div>
+</section>
+
+<div class="illust-fade"></div>
+
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-flowers">🌷 🌼 ☕</div>
+  <div class="divider-line r"></div>
+</div>
+
+<div class="count-badge">
+  <span id="count-label">✦ 協賛者 89名 ✦</span>
+</div>
+
+<div class="marquee-section" id="marquee-section"></div>
+
+<div class="footer-divider">
+  <div class="divider-line"></div>
+  <div class="divider-flowers">⭐ 💐 💫</div>
+  <div class="divider-line r"></div>
+</div>
+
+<div class="footer-area">
+  <div class="thanks"><em>皆さんのおかげで最高の企画になりました</em></div>
+  <p>
+  </p>
+  <div class="footer-flowers">☕ 🏠 💐 🐈 🌼 </div>
+</div>
+
+<script>
+/* =====================================================
+   ★★★ 参加者リスト ★★★
+   ここだけ編集してください！
+
+   形式：
+   { emoji:"絵文字", name:"名前", sns:"@アカウント名", url:"SNSのURL", msg:"メッセージ" },
+
+   ・msg が不要なら "" にしてください
+   ・url は Instagram → "https://instagram.com/アカウント名"
+            X(旧Twitter) → "https://x.com/アカウント名"
+   ・SNSなしの場合は sns:"" url:"" にしてください
+===================================================== */
+const PARTICIPANTS = [
+  { emoji:"🌸", name:"REI" },
+  { emoji:"🌷", name:"ミケ" },
+  { emoji:"🌼", name:"ととまる"},
+  { emoji:"🌺", name:"沈歌"},
+  { emoji:"⭐", name:"DKわか"},
+  { emoji:"💐", name:"こませ"},
+  { emoji:"🌹", name:"エスパーいとー"},
+  { emoji:"🌈", name:"はな"},
+  { emoji:"🦋", name:"hideひで" },
+  { emoji:"⭐", name:"葉っぱ"},
+  { emoji:"🎀", name:"黄-ファン-"},
+  { emoji:"🌼", name:"Tetuki"},
+  { emoji:"💐", name:"黒ラムネ"},
+  { emoji:"🏠", name:"とゆ"},
+  { emoji:"🌼", name:"S"},
+  { emoji:"💫", name:"hashiro"},
+  { emoji:"💐", name:"羽琉　南波"},
+  { emoji:"🏠", name:"croyuki"},
+  { emoji:"🌼", name:"まるいひと。"},
+  { emoji:"💫", name:"langryun"},
+  { emoji:"💐", name:"ひっしー"},
+  { emoji:"🏠", name:"清澄望"},
+  { emoji:"🌼", name:"銀之四季"},
+  { emoji:"💫", name:"ﾀﾅｶﾎﾉｶ"},
+  { emoji:"🌹", name:"こっち"},
+  { emoji:"💫", name:"名名し"},
+  { emoji:"💐", name:"生芝"},
+  { emoji:"🌼", name:"にじ"},
+  { emoji:"🏠", name:"しろうと"},
+  { emoji:"💫", name:"乳酸菌"},
+  { emoji:"🌹", name:"こーく"},
+  { emoji:"💫", name:"りべろーる"},
+  { emoji:"💐", name:"るーさん"},
+  { emoji:"🌼", name:"S4M58"},
+  { emoji:"🏠", name:"ポムポムボム"},
+  { emoji:"💫", name:"めありー"},
+  { emoji:"🌹", name:"ニューボルドー"},
+  { emoji:"💐", name:"みり"},
+  { emoji:"💫", name:"Masa"},
+  { emoji:"🌼", name:"L. (@thekissandfly)"},
+  { emoji:"🏠", name:"衣"},
+  { emoji:"💫", name:"アマオー"},
+  { emoji:"🌹", name:"Beijing"},
+  { emoji:"🏠", name:"きなっぴー"},
+  { emoji:"🌼", name:"天然"},
+  { emoji:"💐", name:"やゆ"},
+　{ emoji:"💫", name:"けー"},
+  { emoji:"🏠", name:"あきらか"},
+  { emoji:"💐", name:"chamo"},
+  { emoji:"🌼", name:"まどろみこあら"},
+  { emoji:"⭐", name:"薄あさぎ"},
+  { emoji:"🌹", name:"Gekken"},
+  { emoji:"💫", name:"1412Seiba"},
+  { emoji:"💐", name:"ぴーかS"},
+  { emoji:"🌼", name:"凪生"},
+  { emoji:"🏠", name:"レティ"},
+  { emoji:"⭐", name:"もち"},
+  { emoji:"💫", name:"シムロ"},
+  { emoji:"🌹", name:"しあん"},
+  { emoji:"💫", name:"クローバー"},
+  { emoji:"⭐", name:"ねくと"},
+  { emoji:"💐", name:"ぴっぽぽ"},
+  { emoji:"🌼", name:"ぽてと"},
+  { emoji:"🏠", name:"やまこう"},
+  { emoji:"💫", name:"焙煎"},
+  { emoji:"🌹", name:"おたまいける。"},
+  { emoji:"💫", name:"ステラ"},
+  { emoji:"⭐", name:"仁"},
+  { emoji:"💫", name:"唯一無二が好き"},
+  { emoji:"💫", name:"鰹武士"},
+  { emoji:"💐", name:"レイス"},
+  { emoji:"🌼", name:"I"},
+  { emoji:"🏠", name:"疾兎"},
+  { emoji:"💫", name:"かぼす"},
+  { emoji:"🌹", name:"はせ"},
+  { emoji:"⭐", name:"Cú_4"},
+  { emoji:"💫", name:"およげないさめ"},
+  { emoji:"💫", name:"のうの"},
+  { emoji:"🌹", name:"霜野"},
+  { emoji:"💐", name:"ののまる"},
+  { emoji:"🌼", name:"れお"},
+  { emoji:"🏠", name:"とらねこ"},
+  { emoji:"⭐", name:"ペケマル"},
+  /* ↑ サンプルです。同じ形式で90名分追加してください */
+];
+/* ===================================================== */
+
+const COLORS = ["pink","purple","teal","yellow","green"];
+const EMOJIS = ["🌸","🌷","🌼","🌺","🌻","💐","🌹","⭐","🌈","🦋","🎀","💫","✨","🎵","🍀"];
+const LANES  = 3;
+
+function buildCard(p, idx) {
+  const color = COLORS[idx % COLORS.length];
+  const emoji = p.emoji || EMOJIS[idx % EMOJIS.length];
+  const card  = document.createElement('div');
+  card.className = 'card';
+  card.dataset.color = color;
+  const snsHTML = p.sns && p.url
+    ? `<a class="card-sns" href="${p.url}" target="_blank">${p.sns}</a>`
+    : p.sns ? `<span class="card-sns" style="cursor:default">${p.sns}</span>` : '';
+  const msgHTML = p.msg
+    ? `<div class="card-message">${p.msg}</div>`
+    : `<div class="card-message hidden"></div>`;
+  card.innerHTML = `
+    <div class="card-top">
+      <div class="card-icon">${emoji}</div>
+      <div style="min-width:0;flex:1">
+        <div class="card-name">${p.name}</div>
+        ${snsHTML}
+      </div>
+    </div>${msgHTML}`;
+  return card;
+}
+
+function buildLanes() {
+  const section = document.getElementById('marquee-section');
+  const groups  = Array.from({length: LANES}, () => []);
+  PARTICIPANTS.forEach((p, i) => groups[i % LANES].push({p, i}));
+  const laneClasses = ['', 'reverse', 'slow'];
+  groups.forEach((group, li) => {
+    if (!group.length) return;
+    const lane = document.createElement('div');
+    lane.className = `marquee-lane ${laneClasses[li]}`;
+    [0, 1].forEach(() => group.forEach(({p, i}) => lane.appendChild(buildCard(p, i))));
+    section.appendChild(lane);
+  });
+}
+buildLanes();
+</script>
+</body>
+</html>
