@@ -9,18 +9,19 @@
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
 :root {
-  --bg:       #fdf6f9;
-  --bg2:      #fff8fb;
-  --text:     #2e1a2e;
-  --sub:      #9a7aaa;
-  --pink:     #e8609a;
-  --pink-l:   #f7c5d8;
-  --purple:   #b07fd4;
-  --teal:     #5dbfb8;
-  --yellow:   #f0c040;
-  --green:    #72c48a;
-  --card-bg:  rgba(255,255,255,0.75);
-  --card-border: rgba(232,96,154,0.18);
+  --bg:        #0a1230;
+  --bg-mid:    #121d45;
+  --bg-soft:   #1a2757;
+  --text:      #eef1fb;
+  --sub:       #93a0ca;
+  --orange:    #f0862a;
+  --orange-l:  #f7b26b;
+  --blue:      #5a86ff;
+  --teal:      #45c4c9;
+  --indigo:    #8b7cf0;
+  --amber:     #f0a23a;
+  --card-bg:   rgba(255,255,255,0.05);
+  --card-border: rgba(240,134,42,0.18);
 }
 
 body {
@@ -31,13 +32,39 @@ body {
   min-height: 100vh;
 }
 
-/* ===== 全体の淡いドット背景 ===== */
+/* ===== 全体の淡い星の背景 ===== */
 body::before {
   content: '';
   position: fixed; inset: 0;
-  background-image: radial-gradient(circle, rgba(232,96,154,0.12) 1.2px, transparent 1.2px);
-  background-size: 32px 32px;
+  background-image: radial-gradient(circle, rgba(240,178,107,0.14) 1.1px, transparent 1.1px);
+  background-size: 34px 34px;
   pointer-events: none; z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(90,134,255,0.18), transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ===== 立札バナー ===== */
+.banner {
+  position: relative; z-index: 1;
+  width: 100%;
+  line-height: 0;
+}
+.banner img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 320px;
+  object-position: center 30%;
+}
+.banner-fade {
+  position: relative; z-index: 1;
+  height: 70px; margin-top: -70px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
 }
 
 /* ===== HERO ===== */
@@ -46,33 +73,30 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 56px 24px 0;
+  padding: 8px 24px 0;
   text-align: center;
 }
 
 .hero-eyebrow {
   font-size: 11px; letter-spacing: 5px; font-weight: 700;
-  color: var(--pink);
+  color: var(--orange-l);
   text-transform: uppercase;
-  margin-bottom: 20px;
-  opacity: 0.8;
+  margin-bottom: 18px;
+  opacity: 0.85;
 }
 
 .hero h1 {
   font-family: 'Shippori Mincho', serif;
+  font-size: clamp(25px, 4vw, 34px);
+  line-height: 1.5;
   font-weight: 600;
-  font-size: clamp(28px, 6vw, 56px);
-  line-height: 1.3;
-  color: var(--text);
-  margin-bottom: 12px;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
+  color: var(--orange);
+  margin-bottom: 18px;
 }
 
 .hero h1 em {
   font-style: normal;
-  background: linear-gradient(120deg, var(--pink), var(--purple));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .hero-sub {
@@ -80,38 +104,43 @@ body::before {
   color: var(--sub);
   line-height: 2;
   font-weight: 400;
-  margin-bottom: 48px;
+  margin-bottom: 20px;
   max-width: 480px;
 }
 
-/* ===== イラストエリア ===== */
-/*
-  イラストはここに配置しています。
-  src="image1.jpg" を実際のファイル名に変えてください。
-  高さは --illust-h で調整できます（大きいほど高くなります）
-*/
-:root { --illust-h: 480px; }
+/* ===== イラストエリア（背景に溶け込むように「生やす」） ===== */
+:root { --illust-h: 500px; }
 
 .illust-frame {
   position: relative;
-  width: min(360px, 88vw);
+  width: min(1300px, 78vw);
   height: var(--illust-h);
   margin: 0 auto;
-  border-radius: 28px 28px 0 0;
-  overflow: hidden;
-  box-shadow:
-    0 -2px 0 rgba(232,96,154,0.2),
-    0 20px 60px rgba(176,127,212,0.15),
-    0 4px 20px rgba(232,96,154,0.1);
-  border: 1.5px solid var(--pink-l);
-  border-bottom: none;
+  overflow: visible;
+}
+
+/* 足元のグロー：キャラクターが光の中から立ち上がっているように見せる */
+.illust-frame::before {
+  content: '';
+  position: absolute;
+  left: 50%; bottom: 6%;
+  width: 78%; height: 46%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(90,134,255,0.35), rgba(240,134,42,0.12) 55%, transparent 75%);
+  filter: blur(6px);
+  z-index: 0;
 }
 
 .illust-frame img {
+  position: relative; z-index: 1;
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: top;   /* ← 顔が見切れる場合: top / center / 50% 15% などで調整 */
+  object-fit: contain;
+  object-position: bottom;
   display: block;
+  /* 上下をふわっとフェードさせて背景に溶け込ませる */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 92%, transparent 100%);
+  filter: drop-shadow(0 18px 32px rgba(0,0,0,0.45));
 }
 
 /* 画像未設定プレースホルダー */
@@ -119,31 +148,22 @@ body::before {
   width: 100%; height: 100%;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  background: linear-gradient(160deg, #fdeaf2, #f5eafd);
   color: var(--sub); font-size: 13px; gap: 10px; text-align: center; padding: 24px;
 }
 .illust-placeholder span { font-size: 40px; }
-
-/* イラストの足元をページ背景にふわっとなじませる */
-.illust-fade {
-  position: relative; z-index: 1;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, var(--bg));
-  margin-top: -2px;
-}
 
 /* ===== 区切り装飾 ===== */
 .divider {
   position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: center;
-  gap: 16px; padding: 32px 24px 40px;
+  gap: 16px; padding: 24px 24px 40px;
 }
 .divider-line {
   flex: 1; max-width: 120px; height: 1px;
-  background: linear-gradient(to right, transparent, var(--pink-l));
+  background: linear-gradient(to right, transparent, rgba(240,134,42,0.4));
 }
-.divider-line.r { background: linear-gradient(to left, transparent, var(--pink-l)); }
-.divider-flowers { font-size: 18px; letter-spacing: 8px; opacity: 0.6; }
+.divider-line.r { background: linear-gradient(to left, transparent, rgba(240,134,42,0.4)); }
+.divider-flowers { font-size: 18px; letter-spacing: 8px; opacity: 0.7; }
 
 /* ===== COUNT BADGE ===== */
 .count-badge {
@@ -152,10 +172,10 @@ body::before {
 }
 .count-badge span {
   display: inline-block;
-  background: linear-gradient(120deg, var(--pink), var(--purple));
-  color: #fff; font-size: 13px; font-weight: 700;
+  background: linear-gradient(120deg, var(--orange), var(--blue));
+  color: #08102b; font-size: 13px; font-weight: 900;
   padding: 7px 24px; border-radius: 99px; letter-spacing: 2px;
-  box-shadow: 0 4px 16px rgba(232,96,154,0.25);
+  box-shadow: 0 4px 20px rgba(240,134,42,0.25);
 }
 
 /* ===== MARQUEE ===== */
@@ -187,20 +207,19 @@ body::before {
   position: relative; overflow: hidden;
   transition: transform .25s ease, box-shadow .25s ease;
   cursor: default;
-  box-shadow: 0 2px 12px rgba(176,127,212,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
 }
 .card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
   border-radius: 18px 18px 0 0;
 }
-.card[data-color="pink"]::before   { background: linear-gradient(90deg,#e8609a,#f0a0c0); }
-.card[data-color="purple"]::before { background: linear-gradient(90deg,#b07fd4,#e8609a); }
-.card[data-color="teal"]::before   { background: linear-gradient(90deg,#5dbfb8,#72c48a); }
-.card[data-color="yellow"]::before { background: linear-gradient(90deg,#f0c040,#e8a060); }
-.card[data-color="green"]::before  { background: linear-gradient(90deg,#72c48a,#5dbfb8); }
+.card[data-color="blue"]::before   { background: linear-gradient(90deg,#5a86ff,#8fb2ff); }
+.card[data-color="indigo"]::before { background: linear-gradient(90deg,#8b7cf0,#5a86ff); }
+.card[data-color="teal"]::before   { background: linear-gradient(90deg,#45c4c9,#5a86ff); }
+.card[data-color="amber"]::before  { background: linear-gradient(90deg,#f0a23a,#f0862a); }
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(176,127,212,0.18);
+  box-shadow: 0 10px 28px rgba(90,134,255,0.2);
 }
 
 .card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; }
@@ -209,11 +228,10 @@ body::before {
   display: flex; align-items: center; justify-content: center;
   font-size: 20px; flex-shrink: 0;
 }
-.card[data-color="pink"]   .card-icon { background: linear-gradient(135deg,#fdeaf2,#f7c5d8); }
-.card[data-color="purple"] .card-icon { background: linear-gradient(135deg,#f0e6fa,#ddc8f5); }
-.card[data-color="teal"]   .card-icon { background: linear-gradient(135deg,#e0f5f4,#b8e8e5); }
-.card[data-color="yellow"] .card-icon { background: linear-gradient(135deg,#fef8e0,#fae8b0); }
-.card[data-color="green"]  .card-icon { background: linear-gradient(135deg,#e4f7eb,#c0e8cc); }
+.card[data-color="blue"]   .card-icon { background: linear-gradient(135deg,#1a2757,#2a3c85); }
+.card[data-color="indigo"] .card-icon { background: linear-gradient(135deg,#241a57,#3a2c85); }
+.card[data-color="teal"]   .card-icon { background: linear-gradient(135deg,#0f2a2c,#1c4a4d); }
+.card[data-color="amber"]  .card-icon { background: linear-gradient(135deg,#3a2a10,#5a3f16); }
 
 .card-name { font-size: 14px; font-weight: 900; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card-sns  {
@@ -222,20 +240,62 @@ body::before {
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 100%;
 }
-.card[data-color="pink"]   .card-sns { color: var(--pink); }
-.card[data-color="purple"] .card-sns { color: var(--purple); }
+.card[data-color="blue"]   .card-sns { color: var(--blue); }
+.card[data-color="indigo"] .card-sns { color: var(--indigo); }
 .card[data-color="teal"]   .card-sns { color: var(--teal); }
-.card[data-color="yellow"] .card-sns { color: #c07820; }
-.card[data-color="green"]  .card-sns { color: #3a9a58; }
+.card[data-color="amber"]  .card-sns { color: var(--amber); }
 .card-sns:hover { opacity: 0.75; }
 
 .card-message {
   font-size: 11px; line-height: 1.8; color: var(--sub);
-  border-top: 1px solid rgba(232,96,154,0.12);
+  border-top: 1px solid rgba(240,134,42,0.15);
   padding-top: 9px; margin-top: 3px;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
 .card-message.hidden { display: none; }
+
+/* ===== MESSAGE MODAL ===== */
+.message-modal {
+  position: fixed; inset: 0; z-index: 9999;
+  display: none; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(5, 9, 25, 0.78);
+  backdrop-filter: blur(8px);
+}
+.message-modal.open { display: flex; }
+.message-modal-box {
+  width: min(520px, 92vw);
+  max-height: min(78vh, 680px);
+  overflow-y: auto;
+  background: #111a3d;
+  border: 1.5px solid rgba(240,134,42,.35);
+  border-radius: 22px;
+  padding: 26px 24px 22px;
+  box-shadow: 0 20px 70px rgba(0,0,0,.55);
+}
+.message-modal-top {
+  display: flex; align-items: center; gap: 12px;
+  padding-bottom: 15px; margin-bottom: 15px;
+  border-bottom: 1px solid rgba(240,134,42,.18);
+}
+.message-modal-icon { font-size: 30px; }
+.message-modal-name {
+  font-size: 17px; font-weight: 900; color: var(--text);
+  overflow-wrap: anywhere;
+}
+.message-modal-text {
+  font-size: 13px; line-height: 2; color: var(--sub);
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.message-modal-close {
+  display: block; margin: 18px auto 0;
+  border: 1px solid rgba(240,134,42,.35);
+  background: transparent; color: var(--sub);
+  border-radius: 999px; padding: 8px 20px;
+  font: inherit; font-size: 11px; cursor: pointer;
+}
+.message-modal-close:hover { color: var(--text); }
+.card:has(.card-message:not(.hidden)) { cursor: pointer; }
 
 /* ===== FOOTER ===== */
 .footer-divider {
@@ -256,21 +316,30 @@ body::before {
 }
 .footer-area .thanks em {
   font-style: normal;
-  background: linear-gradient(120deg, var(--pink), var(--purple));
+  background: linear-gradient(120deg, var(--orange), var(--blue));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .footer-area p { font-size: 13px; color: var(--sub); line-height: 2.2; }
-.footer-flowers { font-size: 20px; letter-spacing: 10px; opacity: 0.5; margin-top: 28px; }
+.footer-flowers { font-size: 20px; letter-spacing: 10px; opacity: 0.6; margin-top: 28px; }
 </style>
 </head>
 <body>
 
+<!-- =============================================
+  ★ 立札バナー画像
+  カナデビ案_onn_立札.png をそのままヘッダーとして使用
+============================================= -->
+<div class="banner">
+  <img src="カナデビ案_onn_立札.png" alt="菅原圭様 祝リリースパーティー開催">
+</div>
+<div class="banner-fade"></div>
+
 <section class="hero">
   <div class="hero-eyebrow">✦ Flower Stand Project ✦</div>
-  <h1>
-    <em>菅原圭<br>
-    one-man live B.G.M.<br>
+<h1>
+    <em>Kei Sugawara <br>
+    Release Party "孔雀"<br>
     フラワースタンド<br>
     協賛者様</em></h1>
   <p class="hero-sub">
@@ -280,37 +349,33 @@ body::before {
 
   <!-- =============================================
     ★ イラスト画像
-    src="image1.jpg" → 実際のファイル名に変更してください
     高さ調整 → CSSの --illust-h: 480px の数値を変えてください
-    表示位置 → object-position: top を変えてください
   ============================================= -->
   <div class="illust-frame">
-    <img src="フラスタ東京.png" alt="フラスタイラスト"
+    <img src="onn透過.png" alt="フラスタイラスト"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
     <div class="illust-placeholder" style="display:none">
-      <span>🌸</span>
-      image1.jpg を<br>同じフォルダに置いてください
+      <span>🌙</span>
+      onn透過.png を<br>同じフォルダに置いてください
     </div>
   </div>
 </section>
 
-<div class="illust-fade"></div>
-
 <div class="divider">
   <div class="divider-line"></div>
-  <div class="divider-flowers">🌷 🌼 ☕</div>
+  <div class="divider-flowers">🌙 ⭐ ✨</div>
   <div class="divider-line r"></div>
 </div>
 
 <div class="count-badge">
-  <span id="count-label">✦ 協賛者 89名 ✦</span>
+  <span id="count-label">✦ 協賛者 91名 ✦</span>
 </div>
 
 <div class="marquee-section" id="marquee-section"></div>
 
 <div class="footer-divider">
   <div class="divider-line"></div>
-  <div class="divider-flowers">⭐ 💐 💫</div>
+  <div class="divider-flowers">⭐ 💫 ✨</div>
   <div class="divider-line r"></div>
 </div>
 
@@ -318,7 +383,18 @@ body::before {
   <div class="thanks"><em>皆さんのおかげで最高の企画になりました</em></div>
   <p>
   </p>
-  <div class="footer-flowers">☕ 🏠 💐 🐈 🌼 </div>
+  <div class="footer-flowers">🌙 ⭐ ✨ 💫 🌊 </div>
+</div>
+
+<div class="message-modal" id="messageModal" aria-hidden="true">
+  <div class="message-modal-box" role="dialog" aria-modal="true" aria-label="協賛者メッセージ">
+    <div class="message-modal-top">
+      <div class="message-modal-icon" id="modalIcon"></div>
+      <div class="message-modal-name" id="modalName"></div>
+    </div>
+    <div class="message-modal-text" id="modalText"></div>
+    <button class="message-modal-close" type="button" id="modalClose">閉じる</button>
+  </div>
 </div>
 
 <script>
@@ -335,94 +411,102 @@ body::before {
    ・SNSなしの場合は sns:"" url:"" にしてください
 ===================================================== */
 const PARTICIPANTS = [
-  { emoji:"🌸", name:"REI" },
-  { emoji:"🌷", name:"ミケ" },
-  { emoji:"🌼", name:"ととまる"},
-  { emoji:"🌺", name:"沈歌"},
-  { emoji:"⭐", name:"DKわか"},
-  { emoji:"💐", name:"こませ"},
-  { emoji:"🌹", name:"エスパーいとー"},
-  { emoji:"🌈", name:"はな"},
-  { emoji:"🦋", name:"hideひで" },
-  { emoji:"⭐", name:"葉っぱ"},
-  { emoji:"🎀", name:"黄-ファン-"},
-  { emoji:"🌼", name:"Tetuki"},
-  { emoji:"💐", name:"黒ラムネ"},
-  { emoji:"🏠", name:"とゆ"},
-  { emoji:"🌼", name:"S"},
-  { emoji:"💫", name:"hashiro"},
-  { emoji:"💐", name:"羽琉　南波"},
-  { emoji:"🏠", name:"croyuki"},
-  { emoji:"🌼", name:"まるいひと。"},
-  { emoji:"💫", name:"langryun"},
-  { emoji:"💐", name:"ひっしー"},
-  { emoji:"🏠", name:"清澄望"},
-  { emoji:"🌼", name:"銀之四季"},
-  { emoji:"💫", name:"ﾀﾅｶﾎﾉｶ"},
-  { emoji:"🌹", name:"こっち"},
-  { emoji:"💫", name:"名名し"},
-  { emoji:"💐", name:"生芝"},
-  { emoji:"🌼", name:"にじ"},
-  { emoji:"🏠", name:"しろうと"},
-  { emoji:"💫", name:"乳酸菌"},
-  { emoji:"🌹", name:"こーく"},
-  { emoji:"💫", name:"りべろーる"},
-  { emoji:"💐", name:"るーさん"},
-  { emoji:"🌼", name:"S4M58"},
-  { emoji:"🏠", name:"ポムポムボム"},
-  { emoji:"💫", name:"めありー"},
-  { emoji:"🌹", name:"ニューボルドー"},
-  { emoji:"💐", name:"みり"},
-  { emoji:"💫", name:"Masa"},
-  { emoji:"🌼", name:"L. (@thekissandfly)"},
-  { emoji:"🏠", name:"衣"},
-  { emoji:"💫", name:"アマオー"},
-  { emoji:"🌹", name:"Beijing"},
-  { emoji:"🏠", name:"きなっぴー"},
-  { emoji:"🌼", name:"天然"},
-  { emoji:"💐", name:"やゆ"},
-　{ emoji:"💫", name:"けー"},
-  { emoji:"🏠", name:"あきらか"},
-  { emoji:"💐", name:"chamo"},
-  { emoji:"🌼", name:"まどろみこあら"},
-  { emoji:"⭐", name:"薄あさぎ"},
-  { emoji:"🌹", name:"Gekken"},
-  { emoji:"💫", name:"1412Seiba"},
-  { emoji:"💐", name:"ぴーかS"},
-  { emoji:"🌼", name:"凪生"},
-  { emoji:"🏠", name:"レティ"},
-  { emoji:"⭐", name:"もち"},
-  { emoji:"💫", name:"シムロ"},
-  { emoji:"🌹", name:"しあん"},
-  { emoji:"💫", name:"クローバー"},
-  { emoji:"⭐", name:"ねくと"},
-  { emoji:"💐", name:"ぴっぽぽ"},
-  { emoji:"🌼", name:"ぽてと"},
-  { emoji:"🏠", name:"やまこう"},
-  { emoji:"💫", name:"焙煎"},
-  { emoji:"🌹", name:"おたまいける。"},
-  { emoji:"💫", name:"ステラ"},
-  { emoji:"⭐", name:"仁"},
-  { emoji:"💫", name:"唯一無二が好き"},
-  { emoji:"💫", name:"鰹武士"},
-  { emoji:"💐", name:"レイス"},
-  { emoji:"🌼", name:"I"},
-  { emoji:"🏠", name:"疾兎"},
-  { emoji:"💫", name:"かぼす"},
-  { emoji:"🌹", name:"はせ"},
-  { emoji:"⭐", name:"Cú_4"},
-  { emoji:"💫", name:"およげないさめ"},
-  { emoji:"💫", name:"のうの"},
-  { emoji:"🌹", name:"霜野"},
-  { emoji:"💐", name:"ののまる"},
-  { emoji:"🌼", name:"れお"},
-  { emoji:"🏠", name:"とらねこ"},
-  { emoji:"⭐", name:"ペケマル"},
+   { emoji:"⭐", name:"銀乃四季", msg:"いつも応援してます！\nがんばって！" },
+  { emoji:"🌼", name:"ノア", msg:"毎日、仕事しながら聴いて元気をもらっています！！\nありがとう！！！" },
+  { emoji:"🌷", name:"STARTマン", msg:"いつも元気貰ってます！幸あれ！！" },
+  { emoji:"🏠", name:"エスパーいとー", msg:"『孔雀』リリース&黄泉のツガイed採用、誠におめでとうございます🎊圭さんの歌は、前に進む時には背中を押してくれる、倒れそうな時には背中を貸してくれる、そんな力があると思っています。圭さんの歌が、もっともっとたくさんの人に届きますように…！" },
+  { emoji:"🏠", name:"リィンカー", msg:"いつも圭さんの歌声や音楽に救われています。あなたの道行に幸あれ🐈" },
+  { emoji:"🦋", name:"まるいひと。", msg:"リスパ開催おめでとうございます！いつも素敵な楽曲、歌声をありがとうございます✨" },
+  { emoji:"⭐", name:"PiXEL" },
+  { emoji:"💐", name:"hideひで", msg:"リリパ開催おめでとうございます！\nこれからもこんなパーティーがたくさん開催されるのを楽しみにしてます！！" },
+  { emoji:"⭐", name:"クレン", msg:"いつもありがとうございます✨" },
+  { emoji:"🌸", name:"りゅーぽん" },
+  { emoji:"💫", name:"シムロ", msg:"毎回素敵なライブをありがとうございます！" },
+  { emoji:"🌼", name:"Cú_4", msg:"Release Party \"孔雀\" 開催おめでとうございます！！" },
+  { emoji:"🌼", name:"kankokeito" },
+  { emoji:"⭐", name:"ga_ma04" },
+  { emoji:"🏠", name:"mmkr6696", msg:"リリースパーティーおめでとうございます！これからも応援してます！！！" },
+  { emoji:"🏠", name:"ぽてと", msg:"リリースパーティーおめでとう＆ありがとう！！！これからも活躍されていく圭さんをずっとずっと応援しています‼️" },
+  { emoji:"💐", name:"hashiro", msg:"初リリパおめでとうございます！！！\nアニメ主題歌やフェス参加など活動の場を\n広げている圭さんを応援してる！！" },
+  { emoji:"🌸", name:"ヒヨコ豆" },
+  { emoji:"🌼", name:"しろうと", msg:"だいすきです" },
+  { emoji:"💐", name:"隙猫", msg:"踊れ、貴方のままで" },
+  { emoji:"🏠", name:"hazukinosyumiak", msg:"いつも素敵な歌をありがとう！" },
+  { emoji:"💐", name:"にじ", msg:"私の日常のBGMです！これからも応援してます！" },
+  { emoji:"💫", name:"みずき", msg:"黄泉のツガイEDおめでとうございます！\nいつも菅原さんの歌で元気を頂いています！\nこれからも頑張ってください！" },
+  { emoji:"🏠", name:"takarin", msg:"圭さんの歌声と歌詞にたくさんの力を貰っています！\n後ろ向きな感情に寄り添ったり、向き合ったり、たまに吹き飛ばしたり、そんな圭さんの楽曲が大好きです。\n公演とても楽しみにしてます！！" },
+  { emoji:"🌹", name:"柊" },
+  { emoji:"🌸", name:"のやま" },
+  { emoji:"🌷", name:"つみれ", msg:"孔雀リリースおめでとうございます。\nこれからも応援しています。" },
+  { emoji:"🌼", name:"みぞー", msg:"孔雀リリースおめでとうございます。\n圭さんの曲をBGMに日々仕事に励めています！\nまだ数回目の参加ですがとても楽しみにしてます✨️" },
+  { emoji:"🦋", name:"名名し", msg:"圭さん！いつも最高な歌をありがとうございます！今の自分は圭さんの歌が生活のBGMになっています！今回のリリースパーティーの孔雀には諸事情で参加できず、現地で応援はできませんが自宅から応援しています！\nこれからも頑張ってください！" },
+  { emoji:"💫", name:"Ggg5301", msg:"ずっと大好きですこれからも頑張ってください" },
+  { emoji:"🌺", name:"REI", msg:"菅原さんの歌が大好きです！\nこれからも応援してます！" },
+  { emoji:"🌷", name:"ミケ", msg:"今回もフラスタ企画ありがとうございます!!超楽しみにしてます！" },
+  { emoji:"🦋", name:"ばりかん", msg:"『孔雀』リリース&リリースパーティ開催ありがとうございます！圭さんの音楽に支えられて生きてます。日々に寄り添ってくれるような素敵な音楽をありがとう！" },
+  { emoji:"🏠", name:"たこわさ", msg:"孔雀リリースパーティ開催おめでとうございます！これからも圭さんの歌声を楽しみにしています！" },
+  { emoji:"🌺", name:"れれれ" },
+  { emoji:"⭐", name:"りん", msg:"圭さん\nリリースパーティーの開催おめでとうございます。\nトークイベントやライブが開催されるたびに喜んでいましたが、1年にこんなにたくさんイベントを開催してくださるとは思っておらず驚いています。\nいろんな形で圭さんの音楽に触れる機会が増えて広がってるなと感じています。\n特に孔雀はいろんな場所で流れているのを聞くので圭さんを知る人が増えていくのが嬉しい気持ちとみんなに知られちゃう！という謎の気持ちになることがあります。\nこれからも大好きです。" },
+  { emoji:"⭐", name:"やまこう", msg:"これからもどうかご自愛いただきながら、活動を続けていただけたら嬉しいです。応援しています！" },
+  { emoji:"💫", name:"雪村うさぎ", msg:"リリパおめでとうございます...❤︎" },
+  { emoji:"⭐", name:"ふゅーず", msg:"孔雀リリースおめでとうございます！！\n毎回素晴らしい曲をありがとうございます😆\nこれからも応援してます！！！" },
+  { emoji:"🌺", name:"Langryun", msg:"いつも素敵な歌、ありがとうございます\n항상 들려주시는 멋진 노래에 힘을 얻고 있어요\n항상 응원하고 있습니다! 건강하시고 행복하시길 기도합니다!\n" },
+  { emoji:"🌺", name:"オシロー", msg:"いつもランニングや朝の支度中など色んな場面で元気もらってます✨️\nこれからも応援してます！！" },
+  { emoji:"🌸", name:"やや右上" },
+  { emoji:"🌷", name:"サンケイ", msg:"いつまでも菅原さんの思うあなたらしさを大事にして、作品を作っていただけると嬉しいです。" },
+  { emoji:"🌼", name:"黄(ファン)🐝☠️", msg:"リリースパーティーの開催おめでとうございます！\nいつも素敵な楽曲に力をもらっています！\nこれからも応援しています！" },
+  { emoji:"🌹", name:"S0ar", msg:"人生の一部、とても大事な支えです。\n愛してるぜ!!　菅原圭!!!" },
+  { emoji:"💐", name:"いふ" },
+  { emoji:"⭐", name:"Tenukatora_", msg:"圭さんの歌声に支えられて生活してます！ライブしてくれてありがとう！" },
+  { emoji:"💫", name:"N", msg:"孔雀とback shotのリリースおめでとうございます！！\n2曲とも凄く良いので毎日聴いています\n今回のリリパもとっても楽しみです！" },
+  { emoji:"⭐", name:"鰹武士" },
+  { emoji:"💐", name:"RamenNobita" },
+  { emoji:"🌷", name:"アヤクサ" },
+  { emoji:"🌸", name:"しあん", msg:"だいすきだよおめでとう" },
+  { emoji:"🌺", name:"🪡🪽よる:めぐ🍽️🐇", msg:"素敵な時間をありがとう" },
+  { emoji:"🌸", name:"おとと", msg:"いつも応援しています！\n健康に気をつけてこれからの活動も頑張ってください！！" },
+  { emoji:"🏠", name:"のえる", msg:"いつも感動をありがとう貴女のおかげで毎日幸せです！\n出会えて本当によかった！" },
+  { emoji:"⭐", name:"こーく", msg:"孔雀リリースパーティーのご開催おめでとうございます！\n圭さんの届けてくれる楽曲に毎日元気をもらっています。\nこれからも応援しています！" },
+  { emoji:"🌼", name:"凪生", msg:"こんにちは。凪生(なぎ)と申します。\n孔雀、backshotのリリース、おめでとうございます！\nこれを書いている頃、パーティーまではもう少し先ですがとても待ち遠しい気持ちです。\nこれからも貴方の歌を楽しみに日々を頑張っていきます！" },
+  { emoji:"🏠", name:"るーさん", msg:"リリースパーティ開催おめでとうございます！菅原さんの歌声も世界観も全部大好きです！" },
+  { emoji:"🌷", name:"乳酸菌🏠", msg:"リリースパーティ開催おめでとうございます！！\n今回も菅原圭さんの魅力を全力で浴びに行きます〜！とても楽しみです🎶" },
+  { emoji:"⭐", name:"衣", msg:"Release Party \"孔雀\"開催おめでとうございます！キービジュアルがとても素敵で今回はどんな圭さんの世界観が見られるのか楽しみです！" },
+  { emoji:"🏠", name:"Rion", msg:"菅原圭さん、リリースパーティ開催おめでとうございます！\nいつも素敵な音楽を届けてくださってありがとうございます。これからも応援しています！" },
+  { emoji:"⭐", name:"ぬこ", msg:"孔雀リリースパーティー開催おめでとうございます。\n素敵なライブになるよう願っています！" },
+  { emoji:"💫", name:"ねくと" },
+  { emoji:"🌷", name:"okclover" },
+  { emoji:"🌹", name:"勝担然紫蝶(かたんしかしちょう)", msg:"今回も無事LIVE開催おめでとうございます！\nご自身の敬愛する作品の楽曲を冠したLIVE、心の底から楽しめますように。\n信じる先はきっと信じてくれる人だけがいます。" },
+  { emoji:"🌺", name:"Beijing", msg:"ライブ開催おめでとうございます！" },
+  { emoji:"🦋", name:"もち" },
+  { emoji:"🌺", name:"おぺぺ", msg:"菅原圭さん、いつも圭さんのお歌で励まされてます♪これからもずっとずっと応援させていただきます〜！！！！📣🫶" },
+  { emoji:"🌺", name:"黒ラムネ" },
+  { emoji:"🏠", name:"ステラ", msg:"孔雀の開催おめでとうございます！\n発表された時から凄く楽しみでした\n現地で楽しみます！" },
+  { emoji:"🌷", name:"popo", msg:"惹き込まれる声、共感する歌詞、そばにいてくれる歌、そんな素敵な菅原圭様。いつもたくさんありがとうございます。" },
+  { emoji:"⭐", name:"コンコン", msg:"おめでとうございます！" },
+  { emoji:"🌸", name:"唯一無二が好き", msg:"素敵なライブになりますように。" },
+  { emoji:"🦋", name:"こませ", msg:"孔雀リリースパーティ開催おめでとうございます！\n圭さん自身からも圭さんの作る曲からも日々の活力を貰ってます！\nこれからも応援してます！" },
+  { emoji:"💐", name:"れお", msg:"せかいいちのおひめさま！" },
+  { emoji:"🏠", name:"あーとん", msg:"リリパたのしみです！" },
+  { emoji:"🦋", name:"枳" },
+  { emoji:"🌹", name:"eno", msg:"とゆ" },
+  { emoji:"💫", name:"かぼす", msg:"🫶" },
+  { emoji:"🌷", name:"レティ", msg:"今も昔も変わらず応援してます！\n頑張ってください！" },
+  { emoji:"💐", name:"さにー", msg:"リリースパーティ開催おめでとう！\nこれからも健康で笑顔の絶えない素敵な人生を送ってください！これからもずっと応援してます！！！" },
+  { emoji:"🏠", name:"菅原圭さんフラスタ＆プレゼント企画🏠", msg:"今回もフラスタ企画をしてくださりありがとうございます！微力ながら参加させていただきます🙏\n圭さんに素敵なお花をお届けできることと、会場でお花を見られることをとても楽しみにしてます✨️" },
+  { emoji:"🌺", name:"バイソン", msg:"菅原圭さん大好きです。" },
+  { emoji:"🌼", name:"miyachi" },
+  { emoji:"🏠", name:"あんこう", msg:"圭ちゃんリリースパーティありがとう\nいつまでも応援していくよ" },
+  { emoji:"🌼", name:"Jugemu_rain", msg:"菅原圭と会えた世界に感謝" },
+  { emoji:"🌺", name:"はせ" },
+  { emoji:"💫", name:"清澄　望", msg:"エンディング曲担当おめでとうございます" },
+  { emoji:"🌷", name:"薄あさぎ", msg:"圭さん大好き〜！圭さんという一番星がこれからもずっと輝きますように！！" },
+  { emoji:"⭐", name:"とらねこ" },
+  { emoji:"🏠", name:"およげないさめ", msg:"𝑩𝑰𝑮 𝑳𝑶𝑽𝑬…🫶🏻️" },
   /* ↑ サンプルです。同じ形式で90名分追加してください */
 ];
 /* ===================================================== */
 
-const COLORS = ["pink","purple","teal","yellow","green"];
+const COLORS = ["blue","indigo","teal","amber"];
 const EMOJIS = ["🌸","🌷","🌼","🌺","🌻","💐","🌹","⭐","🌈","🦋","🎀","💫","✨","🎵","🍀"];
 const LANES  = 3;
 
@@ -462,6 +546,47 @@ function buildLanes() {
     section.appendChild(lane);
   });
 }
+const messageModal = document.getElementById('messageModal');
+const modalIcon = document.getElementById('modalIcon');
+const modalName = document.getElementById('modalName');
+const modalText = document.getElementById('modalText');
+const modalClose = document.getElementById('modalClose');
+
+function closeMessageModal() {
+  messageModal.classList.remove('open');
+  messageModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  document.querySelectorAll('.marquee-lane').forEach(lane => {
+    lane.style.animationPlayState = '';
+  });
+}
+
+document.addEventListener('click', (e) => {
+  const card = e.target.closest('.card');
+  if (!card) return;
+  if (e.target.closest('a')) return;
+  const message = card.querySelector('.card-message:not(.hidden)');
+  if (!message) return;
+
+  modalIcon.textContent = card.querySelector('.card-icon')?.textContent || '💬';
+  modalName.textContent = card.querySelector('.card-name')?.textContent || '';
+  modalText.textContent = message.textContent || '';
+  messageModal.classList.add('open');
+  messageModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  document.querySelectorAll('.marquee-lane').forEach(lane => {
+    lane.style.animationPlayState = 'paused';
+  });
+});
+
+modalClose.addEventListener('click', closeMessageModal);
+messageModal.addEventListener('click', (e) => {
+  if (e.target === messageModal) closeMessageModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && messageModal.classList.contains('open')) closeMessageModal();
+});
+
 buildLanes();
 </script>
 </body>
